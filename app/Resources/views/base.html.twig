@@ -18,11 +18,12 @@
             }
         </style>
         <link rel="stylesheet" href="{{ asset('bundles/main/css/bootstrap-responsive.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/main/css/prettify.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/main/css/main.css') }}">
         {% block stylesheets %}{% endblock %}
         <script src="{{ asset('bundles/main/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
     </head>
-    <body>
+    <body onload="prettyPrint()">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -34,14 +35,8 @@
         <script>window.jQuery || document.write('<script src="{{ asset('bundles/main/js/vendor/jquery-1.8.3.min.js') }}"><\/script>')</script>
 
         <script src="{{ asset('bundles/main/js/vendor/bootstrap.min.js') }}"></script>
-
+        <script src="{{ asset('bundles/main/js/vendor/prettify/prettify.js') }}"></script>
         <script src="{{ asset('bundles/main/js/main.js') }}"></script>
         {% block javascripts %}{% endblock %}
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js') }}';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
     </body>
 </html>

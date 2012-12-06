@@ -25,6 +25,15 @@
 
             {% block content %}{% endblock %}
 
+            {% if code is defined %}
+                <hr>
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#shomethecode">
+                    Show me the code! <b class="caret"></b>
+                </button>
+
+                <div id="shomethecode" class="collapse">{{ code|raw }}</div>
+            {% endif %}
+
             <hr>
             {% block footer %}
             <footer>
