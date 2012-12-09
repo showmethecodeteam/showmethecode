@@ -10,7 +10,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Show me the code!</a>
+                    <a class="brand" href="{{ path('homepage') }}">Show me the code!</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="active"><a href="#">Home</a></li>
@@ -27,11 +27,15 @@
 
             {% if code is defined %}
                 <hr>
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#shomethecode">
-                    Show me the code! <b class="caret"></b>
-                </button>
+                <div class="row">
+                    <div class="span12">
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#shomethecode">
+                            Show me the code! <b class="caret"></b>
+                        </button>
 
-                <div id="shomethecode" class="collapse">{{ code|raw }}</div>
+                        <div id="shomethecode" class="collapse">{{ code|raw }}</div>
+                    </div>
+                </div>
             {% endif %}
 
             <hr>

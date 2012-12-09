@@ -54,3 +54,6 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+parameters:
+    github_repository: https://github.com/showmethecodeteam/showmethecode
