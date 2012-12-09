@@ -46,10 +46,10 @@ class ShowMeTheCodeExtension extends \Twig_Extension
         $template = str_replace('{% set code = code(_self) %}', '', $template);
 
         return <<<EOF
-<h4><strong><a href="$controllerLink">Controller Code</a></strong></h4>
+<h4><strong>Controller Code - <a href="$controllerLink">Github</a></strong></h4>
 <pre class="prettyprint">$controller</pre>
 
-<h4><strong><a href="$templateLink">Template Code</a></strong></h4>
+<h4><strong>Template Code - <a href="$templateLink">Github</a></strong></h4>
 <pre class="prettyprint">$template</pre>
 EOF;
     }
