@@ -1,0 +1,45 @@
+España:
+    name: España
+    slug: spain
+    provinces:
+        Valencia:
+            name: Valencia
+            slug: valencia
+            cities:
+                Valencia:
+                    name: Valencia
+                    slug: valencia
+                Sagunto:
+                    name: Sagunto
+                    slug: sagunto
+                Gandia:
+                    name: Gandía
+                    slug: gandia
+        Madrid:
+            name: Madrid
+            slug: madrid
+            cities:
+                Madrid:
+                    name: Madrid
+                    slug: madrid
+                Mostoles:
+                    name: Móstoles
+                    slug: mostoles
+Portugal:
+    name: Portugal
+    slug: portugal
+    provinces:
+        Algarve:
+            name: Algarve
+            slug: algarve
+            cities:
+                Lagos:
+                    name: Lagos
+                    slug: lagos
+        Minho:
+            name: Minho
+            slug: minho
+            cities:
+                Lagos:
+                    name: Fafe
+                    slug: fafe
