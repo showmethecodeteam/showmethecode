@@ -40,8 +40,8 @@ doctrine:
     dbal:
         connections:
             default:
-                driver:   pdo_sqlite
-                path:     %kernel.cache_dir%/test.db
+                driver:   %database_driver%
+                path:     %database_path%
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
