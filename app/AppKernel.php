@@ -22,6 +22,7 @@ class AppKernel extends Kernel
 
             // Our Bundles
             new SMTC\MainBundle\MainBundle(),
+            new SMTC\UserBundle\SMTCUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
