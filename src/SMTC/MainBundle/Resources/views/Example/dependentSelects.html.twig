@@ -17,7 +17,7 @@
                 <li>Editar Localización
                     <ul>
                         {% for city in cities %}
-                            <li><a href="{{ path('examples_dependent_selects_location_edit', {'slug': city.slug}) }}">Editar {{ city.name }}</a></li>
+                            <li><a href="{{ path('examples_dependent_selects_location_edit', {'slug': city.slug}) }}">{{ city.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
