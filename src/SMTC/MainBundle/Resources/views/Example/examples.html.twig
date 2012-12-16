@@ -1,0 +1,15 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <ul>
+                <li><a href="{{ path('examples_dependent_selects') }}">Selects dependientes</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}

@@ -1,0 +1,60 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            $("#location_country").change(function(){
+                var data = {
+                    country_id: $(this).val()
+                };
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ path("select_provinces") }}',
+                    data: data,
+                    success: function(data) {
+                        $('#location_province').html(data);
+                        $('#location_city').html("<option>Ciudad</option>");
+                    }
+                });
+            });
+
+            $("#location_province").change(function(){
+                var data = {
+                    province_id: $(this).val()
+                };
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ path("select_cities") }}',
+                    data: data,
+                    success: function(data) {
+                        $('#location_city').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <form action="{{ path('examples_dependent_selects_location_new') }}" method="POST" novalidate>
+                {{ form_row(form.address) }}
+                {{ form_row(form.country) }}
+                {{ form_row(form.province) }}
+                {{ form_row(form.city) }}
+                {{ form_rest(form) }}
+                <button type="submit" class="btn btn-success">
+                    Guardar
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}

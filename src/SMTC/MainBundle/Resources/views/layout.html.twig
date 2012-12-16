@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 
+{% set section = section is defined ? section : 'homepage' %}
+
 {% block body %}
     {% block navbar %}
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -12,9 +14,7 @@
                     </a>
                     <a class="brand" href="{{ path('homepage') }}">Show me the code!</a>
                     <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
-                        </ul>
+                        {% include 'MainBundle::menu.html.twig' with {'section': section} only %}
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
