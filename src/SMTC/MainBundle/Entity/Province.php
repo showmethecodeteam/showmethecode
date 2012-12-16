@@ -5,19 +5,17 @@ namespace SMTC\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Province entity
- *
  * @author Fran Moreno <franmomu@gmail.com>
  */
 
 /**
  * SMTC\MainBundle\Entity\Province
  *
- * @ORM\Table(name="smtc_province")
+ * @ORM\Table(name="main_province")
  * @ORM\Entity(repositoryClass="SMTC\MainBundle\Entity\ProvinceRepository")
  */
-class Province {
-
+class Province
+{
     /**
      * @var integer $id
      *
@@ -73,7 +71,7 @@ class Province {
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string   $name
      * @return Province
      */
     public function setName($name)
@@ -96,7 +94,7 @@ class Province {
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string   $slug
      * @return Province
      */
     public function setSlug($slug)
@@ -119,7 +117,7 @@ class Province {
     /**
      * Set country
      *
-     * @param \SMTC\MainBundle\Entity\Country $country
+     * @param  \SMTC\MainBundle\Entity\Country $country
      * @return Province
      */
     public function setCountry(\SMTC\MainBundle\Entity\Country $country = null)
@@ -142,10 +140,10 @@ class Province {
     /**
      * Add cities
      *
-     * @param \SMTC\MainBundle\Entity\City $cities
+     * @param  \SMTC\MainBundle\Entity\City $cities
      * @return Province
      */
-    public function addCitie(\SMTC\MainBundle\Entity\City $cities)
+    public function addCity(\SMTC\MainBundle\Entity\City $cities)
     {
         $this->cities[] = $cities;
 
@@ -157,7 +155,7 @@ class Province {
      *
      * @param \SMTC\MainBundle\Entity\City $cities
      */
-    public function removeCitie(\SMTC\MainBundle\Entity\City $cities)
+    public function removeCity(\SMTC\MainBundle\Entity\City $cities)
     {
         $this->cities->removeElement($cities);
     }

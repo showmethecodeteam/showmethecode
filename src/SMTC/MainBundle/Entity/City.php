@@ -5,18 +5,17 @@ namespace SMTC\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Description of City
- *
  * @author Fran Moreno <franmomu@gmail.com>
  */
 
 /**
  * SMTC\MainBundle\Entity\City
  *
- * @ORM\Table(name="smtc_city")
+ * @ORM\Table(name="main_city")
  * @ORM\Entity(repositoryClass="SMTC\MainBundle\Entity\CityRepository")
  */
-class City {
+class City
+{
     /**
      * @var integer $id
      *
@@ -47,18 +46,6 @@ class City {
     protected $province;
 
     /**
-     * @ORM\OneToMany(targetEntity="SMTC\MainBundle\Entity\User", mappedBy="city")
-     */
-    protected $people;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->people = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -71,7 +58,7 @@ class City {
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return City
      */
     public function setName($name)
@@ -94,7 +81,7 @@ class City {
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string $slug
      * @return City
      */
     public function setSlug($slug)
@@ -117,7 +104,7 @@ class City {
     /**
      * Set province
      *
-     * @param \SMTC\MainBundle\Entity\Province $province
+     * @param  \SMTC\MainBundle\Entity\Province $province
      * @return City
      */
     public function setProvince(\SMTC\MainBundle\Entity\Province $province = null)
@@ -135,39 +122,6 @@ class City {
     public function getProvince()
     {
         return $this->province;
-    }
-
-    /**
-     * Add people
-     *
-     * @param \SMTC\MainBundle\Entity\User $people
-     * @return City
-     */
-    public function addPeople(\SMTC\MainBundle\Entity\User $people)
-    {
-        $this->people[] = $people;
-
-        return $this;
-    }
-
-    /**
-     * Remove people
-     *
-     * @param \SMTC\MainBundle\Entity\User $people
-     */
-    public function removePeople(\SMTC\MainBundle\Entity\User $people)
-    {
-        $this->people->removeElement($people);
-    }
-
-    /**
-     * Get people
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPeople()
-    {
-        return $this->people;
     }
 
     public function __toString()

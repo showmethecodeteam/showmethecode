@@ -5,19 +5,17 @@ namespace SMTC\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Country entity
- *
  * @author Fran Moreno <franmomu@gmail.com>
  */
 
 /**
  * SMTC\MainBundle\Entity\Country
  *
- * @ORM\Table(name="smtc_country")
- * @ORM\Entity(repositoryClass="SMTC\MainBundle\Entity\CountryRepository")
+ * @ORM\Table(name="main_country")
+ * @ORM\Entity()
  */
-class Country {
-
+class Country
+{
     /**
      * @var integer $id
      *
@@ -45,6 +43,7 @@ class Country {
      * @ORM\OneToMany(targetEntity="SMTC\MainBundle\Entity\Province", mappedBy="country")
      */
     protected $provinces;
+
     /**
      * Constructor
      */
@@ -66,7 +65,7 @@ class Country {
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string  $name
      * @return Country
      */
     public function setName($name)
@@ -89,7 +88,7 @@ class Country {
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return Country
      */
     public function setSlug($slug)
@@ -112,7 +111,7 @@ class Country {
     /**
      * Add provinces
      *
-     * @param \SMTC\MainBundle\Entity\Province $provinces
+     * @param  \SMTC\MainBundle\Entity\Province $provinces
      * @return Country
      */
     public function addProvince(\SMTC\MainBundle\Entity\Province $provinces)
