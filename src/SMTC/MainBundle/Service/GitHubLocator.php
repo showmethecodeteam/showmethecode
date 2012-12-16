@@ -6,7 +6,7 @@ use CG\Core\ClassUtils;
 use Symfony\Component\Templating\TemplateNameParserInterface;
 use Symfony\Component\Config\FileLocatorInterface;
 
-class GithubLocator
+class GitHubLocator
 {
     private $repository;
     private $rootDir;

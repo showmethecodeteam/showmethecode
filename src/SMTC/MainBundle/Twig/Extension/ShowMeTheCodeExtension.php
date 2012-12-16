@@ -2,7 +2,6 @@
 
 namespace SMTC\MainBundle\Twig\Extension;
 
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\TwigBundle\Loader\FilesystemLoader;
 use CG\Core\ClassUtils;
 use SMTC\MainBundle\Service\GithubLocator;
