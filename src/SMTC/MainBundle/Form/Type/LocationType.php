@@ -13,12 +13,13 @@ class LocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $subscriber = new AddCityFieldSubscriber($builder->getFormFactory());
-        $builder->addEventSubscriber($subscriber);
-        $subscriber = new AddProvinceFieldSubscriber($builder->getFormFactory());
-        $builder->addEventSubscriber($subscriber);
-        $subscriber = new AddCountryFieldSubscriber($builder->getFormFactory());
-        $builder->addEventSubscriber($subscriber);
+        $factory = $builder->getFormFactory();
+        $citySubscriber = new AddCityFieldSubscriber($factory);
+        $builder->addEventSubscriber($citySubscriber);
+        $provinceSubscriber = new AddProvinceFieldSubscriber($factory);
+        $builder->addEventSubscriber($provinceSubscriber);
+        $countrySubscriber = new AddCountryFieldSubscriber($factory);
+        $builder->addEventSubscriber($countrySubscriber);
 
         $builder->add('address');
     }
