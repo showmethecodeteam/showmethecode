@@ -16,13 +16,24 @@
                     <div class="nav-collapse collapse">
                         {% include 'MainBundle::menu.html.twig' with {'section': section} only %}
                     </div><!--/.nav-collapse -->
+                    {% block user_info %}{% endblock %}
                 </div>
             </div>
         </div>
         {% endblock %}
 
         <div class="container">
-
+            <div class="row">
+                <div class="span12">
+                    {% if app.session.flashbag.has('location') %}
+                        <div class="alert alert-success">
+                            {% for flashMessage in app.session.flashbag.get('location') %}
+                                <p>{{ flashMessage }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
             {% block content %}{% endblock %}
 
             {% if code is defined %}
