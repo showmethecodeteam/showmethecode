@@ -9,6 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SMTC\MainBundle\Form\Model\Location;
 use SMTC\MainBundle\Form\Type\LocationType;
 use SMTC\MainBundle\Entity\City;
+use SMTC\MainBundle\Form\Type\PasswordType;
+use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * @Route("ejemplo" )
@@ -22,6 +25,49 @@ class ExampleController extends Controller
     public function examplesAction()
     {
         return array();
+    }
+
+    private function loginAs($username, $password, $roles = array('ROLE_USER'))
+    {
+        $firewallName = 'secured_area';
+        $user = new User($username, $password, $roles);
+        $token = new UsernamePasswordToken($user, null, $firewallName, $user->getRoles());
+        $this->container->get('security.context')->setToken($token);
+    }
+
+    /**
+     * @Route("/userpassword", name="examples_userpassword")
+     * @Template()
+     */
+    public function userPasswordAction()
+    {
+        $user = 'smtc';
+        $password = 'smtc';
+        $this->loginAs($user, $password);
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $form = $this->createForm(new PasswordType(), $user);
+
+        $request = $this->getRequest();
+
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+
+                // do amazing things
+
+                $flashBag = $this->get('session')->getFlashBag();
+                $flashBag->add('location', 'El password es correcto');
+
+                return $this->redirect($this->generateUrl('examples_userpassword'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView()
+        );
     }
 
     /**
