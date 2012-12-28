@@ -27,11 +27,12 @@ class ExampleController extends Controller
         return array();
     }
 
-    private function loginAs($username, $password, $roles = array('ROLE_USER'))
+    private function loginByUsername($username)
     {
+        $inMemoryProvider = $this->get('smtc.main.security.provider.in_memory');
+        $user = $inMemoryProvider->loadUserByUsername($username);
         $firewallName = 'secured_area';
-        $user = new User($username, $password, $roles);
-        $token = new UsernamePasswordToken($user, null, $firewallName, $user->getRoles());
+        $token = new UsernamePasswordToken($user, $user->getPassword(), $firewallName, $user->getRoles());
         $this->container->get('security.context')->setToken($token);
     }
 
@@ -41,12 +42,9 @@ class ExampleController extends Controller
      */
     public function userPasswordAction()
     {
-        $user = 'smtc';
-        $password = 'smtc';
-        $this->loginAs($user, $password);
+        $this->loginByUsername('smtc');
 
         $user = $this->get('security.context')->getToken()->getUser();
-
         $form = $this->createForm(new PasswordType(), $user);
 
         $request = $this->getRequest();

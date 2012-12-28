@@ -16,7 +16,27 @@
                     <div class="nav-collapse collapse">
                         {% include 'MainBundle::menu.html.twig' with {'section': section} only %}
                     </div><!--/.nav-collapse -->
-                    {% block user_info %}{% endblock %}
+                    {% block user_info %}
+                        <div class="pull-right">
+                            <ul class="nav pull-right">
+                                <li class="dropdown">
+                                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            {{ app.user.username }}
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ logout_path('secured_area') }}">Logout</a></li>
+                                        </ul>
+                                    {% else %}
+                                        <a href="#">
+                                            Anonymous
+                                        </a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
+                    {% endblock %}
                 </div>
             </div>
         </div>

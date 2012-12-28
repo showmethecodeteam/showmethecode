@@ -16,6 +16,7 @@ security:
                 users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    smtc:  { password: smtcpass, roles: [ 'ROLE_SMTC' ] }
 
     firewalls:
         dev:
