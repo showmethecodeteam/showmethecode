@@ -1,3 +1,6 @@
+logout:
+    pattern: /logout
+
 user:
     resource: "@SMTCUserBundle/Controller/"
     type:     annotation
