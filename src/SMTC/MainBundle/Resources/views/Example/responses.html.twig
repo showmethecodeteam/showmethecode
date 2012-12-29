@@ -1,0 +1,78 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <ul>
+                <li><a href="{{ path('responses_response') }}">Response</a>
+                    <pre class="prettyprint">
+public function responseAction()
+{
+    return new Response('Respuesta simple!');
+}</pre>
+                </li>
+                <li>
+                    <a href="{{ path('responses_json') }}">ResponseRedirect</a>
+                    <pre class="prettyprint">
+public function redirectAction()
+{
+    return new RedirectResponse($this->generateUrl('examples_responses'));
+}</pre>
+                </li>
+                <li>
+                    <a href="{{ path('responses_jsonp') }}">JsonResponse</a>
+                    <pre class="prettyprint">
+public function jsonResponseAction()
+{
+    return new JsonResponse(array(
+        'class' => '\Symfony\Component\HttpFoundation\JsonResponse',
+        'type' => 'json'
+    ));
+}</pre>
+                </li>
+                <li>
+                    <a href="{{ path('responses_redirect') }}">JsonResponse (JSONP)</a>
+                    <pre class="prettyprint">
+public function jsonpResponseAction()
+{
+    $response = new JsonResponse(array(
+        'class' => '\Symfony\Component\HttpFoundation\JsonResponse',
+        'type' => 'jsonp'
+    ));
+    $response->setCallback('handleData');
+
+    return $response;
+}</pre>
+                </li>
+                <li>
+                    <a href="{{ path('responses_streamed') }}">StreamedResponse</a>
+                    <pre class="prettyprint">
+public function streamedResponseAction()
+{
+    $response = new StreamedResponse();
+    $response->setCallback(function () {
+        echo 'Loading';
+        flush();
+        ob_flush();
+        for ($i=0; $i < 10; $i++) {
+            usleep(200000);
+            echo '.';
+            flush();
+            ob_flush();
+        }
+        echo 'Completed!';
+        flush();
+        ob_flush();
+    });
+
+    return $response;
+}</pre>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}

@@ -28,6 +28,15 @@ class ExampleController extends Controller
     }
 
     /**
+     * @Route("/respuesta", name="examples_responses")
+     * @Template()
+     */
+    public function responsesAction()
+    {
+        return array();
+    }
+
+    /**
      * @Route("/impersonating", name="examples_impersonating")
      * @Template()
      */
