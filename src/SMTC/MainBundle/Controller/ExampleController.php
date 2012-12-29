@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
- * @Route("ejemplo" )
+ * @Route("/ejemplo")
  */
 class ExampleController extends Controller
 {

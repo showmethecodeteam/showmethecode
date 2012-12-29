@@ -1,6 +1,6 @@
 <?php
 
-namespace SMTC\MainBundle\DataFixtures\ODM;
+namespace SMTC\MainBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;

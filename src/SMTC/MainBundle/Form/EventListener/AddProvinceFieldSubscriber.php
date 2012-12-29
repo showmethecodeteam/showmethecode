@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityRepository;
-use SMTC\MainBundle\Form\Model\User;
 use SMTC\MainBundle\Entity\Country;
 
 class AddProvinceFieldSubscriber implements EventSubscriberInterface
@@ -36,13 +35,13 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
             'query_builder' => function (EntityRepository $repository) use ($country) {
                 $qb = $repository->createQueryBuilder('province')
                     ->innerJoin('province.country', 'country');
-                if($country instanceof Country){
+                if ($country instanceof Country) {
                     $qb->where('province.country = :country')
                     ->setParameter('country', $country);
-                }elseif(is_numeric($country)){
+                } elseif (is_numeric($country)) {
                     $qb->where('country.id = :country')
                     ->setParameter('country', $country);
-                }else{
+                } else {
                     $qb->where('country.name = :country')
                     ->setParameter('country', null);
                 }
@@ -75,7 +74,7 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if(array_key_exists('country', $data)) {
+        if (array_key_exists('country', $data)) {
             $province = $data['province'];
             $country = array_key_exists('country', $data) ? $data['country'] : null;
             $this->addProvinceForm($form, $province, $country);
