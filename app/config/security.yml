@@ -27,6 +27,7 @@ security:
             pattern:    ^/
             provider: in_memory
             anonymous: ~
+            switch_user: {role: ROLE_SMTC, parameter: _change_to}
             logout:
                 path: logout
 

@@ -27,6 +27,19 @@ class ExampleController extends Controller
         return array();
     }
 
+    /**
+     * @Route("/impersonating", name="examples_impersonating")
+     * @Template()
+     */
+    public function impersonatingAction()
+    {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $this->loginByUsername('smtc');
+        }
+
+        return array();
+    }
+
     private function loginByUsername($username)
     {
         $inMemoryProvider = $this->get('smtc.main.security.provider.in_memory');
