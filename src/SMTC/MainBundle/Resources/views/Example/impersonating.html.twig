@@ -6,12 +6,14 @@
     <div class="row">
         <div class="span12">
             <p>Soy {{ app.user.username }}</p>
+            <ul>
             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                <p><a href="{{ path('examples_impersonating', {'_change_to': '_exit'}) }}">Exit impersonating</a></p>
+                <li><a href="{{ path('examples_impersonating', {'_change_to': '_exit'}) }}">Salir impersonating</a></li>
             {% else %}
-                <p><a href="{{ path('examples_impersonating', {'_change_to': 'user'}) }}">Change to User</a></p>
-                <p><a href="{{ path('examples_impersonating', {'_change_to': 'admin'}) }}">Change to Admin</a></p>
+                <li><a href="{{ path('examples_impersonating', {'_change_to': 'user'}) }}">Cambiar a User</a></li>
+                <li><a href="{{ path('examples_impersonating', {'_change_to': 'admin'}) }}">Cambiar a Admin</a></li>
             {% endif %}
+            </ul>
         </div>
     </div>
 {% endblock %}
