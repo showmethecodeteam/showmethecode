@@ -35,10 +35,17 @@ class ShowMeTheCodeExtension extends \Twig_Extension
 
     public function getCode($template)
     {
-        $controllerLink = $this->githubLocator->getControllerLink($this->controller);
-        $templateLink = $this->githubLocator->getTemplateLink($template);
+        $controllerClass = get_class($this->controller[0]);
+        if (class_exists('CG\Core\ClassUtils')) {
+            $controllerClass = ClassUtils::getUserClass($controllerClass);
+        }
 
-        $controller = htmlspecialchars($this->getControllerCode(), ENT_QUOTES, 'UTF-8');
+        $methodName = $this->controller[1];
+
+        $controllerLink = $this->githubLocator->getMethodControllerLink($controllerClass, $methodName);
+        $templateLink = $this->githubLocator->getTemplateLink($template->getTemplateName());
+
+        $controller = htmlspecialchars($this->getControllerCode($controllerClass, $methodName), ENT_QUOTES, 'UTF-8');
         $template = htmlspecialchars($this->getTemplateCode($template), ENT_QUOTES, 'UTF-8');
 
         // remove the code block
@@ -53,15 +60,11 @@ class ShowMeTheCodeExtension extends \Twig_Extension
 EOF;
     }
 
-    protected function getControllerCode()
+    protected function getControllerCode($controllerClass, $methodName)
     {
-        $class = get_class($this->controller[0]);
-        if (class_exists('CG\Core\ClassUtils')) {
-            $class = ClassUtils::getUserClass($class);
-        }
 
-        $r = new \ReflectionClass($class);
-        $m = $r->getMethod($this->controller[1]);
+        $r = new \ReflectionClass($controllerClass);
+        $m = $r->getMethod($methodName);
 
         $code = file($r->getFilename());
 

@@ -33,32 +33,26 @@ class GitHubLocator
         return $this->repository;
     }
 
-    public function getControllerLink($controller)
+    public function getMethodControllerLink($controllerClass, $methodName)
     {
-        $class = get_class($controller[0]);
-        if (class_exists('CG\Core\ClassUtils')) {
-            $class = ClassUtils::getUserClass($class);
-        }
+        $reflectionClass = new \ReflectionClass($controllerClass);
+        $method = $reflectionClass->getMethod($methodName);
 
-        $r = new \ReflectionClass($class);
-        $m = $r->getMethod($controller[1]);
-
-        $relativeClassDir = str_replace(dirname($this->rootDir)."/", "", $r->getFilename());
-
-        $anchor = sprintf("#L%d-%d", $m->getStartline(), $m->getEndline());
+        $relativeClassDir = str_replace(dirname($this->rootDir)."/", "", $reflectionClass->getFilename());
+        $anchor = sprintf("#L%d-%d", $method->getStartline(), $method->getEndline());
 
         return $this->getBaseFileLink() . "/" . $relativeClassDir . $anchor;
     }
 
-    public function getTemplateLink($template)
+    public function getTemplateLink($templateName)
     {
-        $templateDir = $this->locator->locate($this->parser->parse($template->getTemplateName()));
+        $templateDir = $this->locator->locate($this->parser->parse($templateName));
         $templateRelativeDir = str_replace(dirname($this->rootDir)."/", "", $templateDir);
 
         return $this->getBaseFileLink() . "/" . $templateRelativeDir;
     }
 
-    public function getBaseFileLink()
+    private function getBaseFileLink()
     {
         return $this->repository . "/" . $this->getBlobDir() . "/" . $this->branch;
     }
