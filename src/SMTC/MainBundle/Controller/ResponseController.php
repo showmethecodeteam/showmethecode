@@ -37,7 +37,7 @@ class ResponseController extends Controller
     {
         return new JsonResponse(array(
             'class' => '\Symfony\Component\HttpFoundation\JsonResponse',
-            'type' => 'json'
+            'type'  => 'json'
         ));
     }
 
@@ -48,7 +48,7 @@ class ResponseController extends Controller
     {
         $response = new JsonResponse(array(
             'class' => '\Symfony\Component\HttpFoundation\JsonResponse',
-            'type' => 'jsonp'
+            'type'  => 'jsonp'
         ));
         $response->setCallback('handleData');
 

@@ -33,6 +33,13 @@ class GitHubLocator
         return $this->repository;
     }
 
+    /**
+     * Gets the link to the controller's method
+     *
+     * @param  string $controllerClass
+     * @param  string $methodName
+     * @return string
+     */
     public function getMethodControllerLink($controllerClass, $methodName)
     {
         $reflectionClass = new \ReflectionClass($controllerClass);
@@ -44,6 +51,12 @@ class GitHubLocator
         return $this->getBaseFileLink() . "/" . $relativeClassDir . $anchor;
     }
 
+    /**
+     * Gets the link to the template
+     *
+     * @param  string $templateName in format AcmeBundle:Default:template.html.twig
+     * @return string
+     */
     public function getTemplateLink($templateName)
     {
         $templateDir = $this->locator->locate($this->parser->parse($templateName));

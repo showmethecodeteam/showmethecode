@@ -33,6 +33,11 @@ class ShowMeTheCodeExtension extends \Twig_Extension
         );
     }
 
+    /**
+     * Gets the code from the template
+     * @param  Twig_Template $template
+     * @return HTML to display
+     */
     public function getCode($template)
     {
         $controllerClass = get_class($this->controller[0]);
@@ -45,8 +50,8 @@ class ShowMeTheCodeExtension extends \Twig_Extension
         $controllerLink = $this->githubLocator->getMethodControllerLink($controllerClass, $methodName);
         $templateLink = $this->githubLocator->getTemplateLink($template->getTemplateName());
 
-        $controller = htmlspecialchars($this->getControllerCode($controllerClass, $methodName), ENT_QUOTES, 'UTF-8');
-        $template = htmlspecialchars($this->getTemplateCode($template), ENT_QUOTES, 'UTF-8');
+        $controller = $this->getControllerCode($controllerClass, $methodName);
+        $template = $this->getTemplateCode($template);
 
         // remove the code block
         $template = str_replace('{% set code = code(_self) %}', '', $template);
@@ -60,7 +65,7 @@ class ShowMeTheCodeExtension extends \Twig_Extension
 EOF;
     }
 
-    protected function getControllerCode($controllerClass, $methodName)
+    private function getControllerCode($controllerClass, $methodName)
     {
 
         $r = new \ReflectionClass($controllerClass);
@@ -68,12 +73,16 @@ EOF;
 
         $code = file($r->getFilename());
 
-        return '    '.$m->getDocComment()."\n".implode('', array_slice($code, $m->getStartline() - 1, $m->getEndLine() - $m->getStartline() + 1));
+        $controllerCode = '    '.$m->getDocComment()."\n".implode('', array_slice($code, $m->getStartline() - 1, $m->getEndLine() - $m->getStartline() + 1));
+
+        return htmlspecialchars($controllerCode, ENT_QUOTES, 'UTF-8');
     }
 
-    protected function getTemplateCode($template)
+    private function getTemplateCode($template)
     {
-        return $this->loader->getSource($template->getTemplateName());
+        $templateCode = $this->loader->getSource($template->getTemplateName());
+
+        return htmlspecialchars($templateCode, ENT_QUOTES, 'UTF-8');
     }
 
     /**
@@ -83,6 +92,6 @@ EOF;
      */
     public function getName()
     {
-        return 'demo';
+        return 'smtc';
     }
 }
