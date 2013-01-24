@@ -2,7 +2,6 @@
 
 namespace SMTC\MainBundle\EventListener;
 
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use SMTC\MainBundle\Twig\Extension\ShowMeTheCodeExtension;

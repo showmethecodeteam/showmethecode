@@ -27,7 +27,7 @@ class LocationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SMTC\MainBundle\Form\Model\Location'
+            'data_class' => 'SMTC\MainBundle\Model\Location'
         ));
     }
 

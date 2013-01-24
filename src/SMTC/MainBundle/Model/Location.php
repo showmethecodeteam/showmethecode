@@ -1,6 +1,6 @@
 <?php
 
-namespace SMTC\MainBundle\Form\Model;
+namespace SMTC\MainBundle\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
