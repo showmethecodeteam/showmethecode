@@ -1,6 +1,6 @@
 <?php
 
-namespace SMTC\MainBundle\Controller;
+namespace SMTC\MainBundle\Controller\Example;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -9,87 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SMTC\MainBundle\Model\Location;
 use SMTC\MainBundle\Form\Type\LocationType;
 use SMTC\MainBundle\Entity\City;
-use SMTC\MainBundle\Form\Type\PasswordType;
-use Symfony\Component\Security\Core\User\User;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-/**
- * @Route("/ejemplo")
- */
-class ExampleController extends Controller
+class LocationController extends Controller
 {
-    /**
-     * @Route("/", name="examples")
-     * @Template()
-     */
-    public function examplesAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Route("/respuesta", name="examples_responses")
-     * @Template()
-     */
-    public function responsesAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Route("/impersonating", name="examples_impersonating")
-     * @Template()
-     */
-    public function impersonatingAction()
-    {
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $this->loginByUsername('smtc');
-        }
-
-        return array();
-    }
-
-    private function loginByUsername($username)
-    {
-        $inMemoryProvider = $this->get('smtc.main.security.provider.in_memory');
-        $user = $inMemoryProvider->loadUserByUsername($username);
-        $firewallName = 'secured_area';
-        $token = new UsernamePasswordToken($user, $user->getPassword(), $firewallName, $user->getRoles());
-        $this->container->get('security.context')->setToken($token);
-    }
-
-    /**
-     * @Route("/userpassword", name="examples_userpassword")
-     * @Template()
-     */
-    public function userPasswordAction()
-    {
-        $this->loginByUsername('smtc');
-
-        $user = $this->get('security.context')->getToken()->getUser();
-        $form = $this->createForm(new PasswordType(), $user);
-
-        $request = $this->getRequest();
-
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-
-                // do amazing things
-
-                $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('smtc_success', 'El password es correcto');
-
-                return $this->redirect($this->generateUrl('examples_userpassword'));
-            }
-        }
-
-        return array(
-            'form' => $form->createView()
-        );
-    }
-
     /**
      * @Route("/selects-dependientes", name="examples_dependent_selects")
      * @Template()

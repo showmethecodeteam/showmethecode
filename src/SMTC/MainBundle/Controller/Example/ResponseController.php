@@ -1,9 +1,10 @@
 <?php
 
-namespace SMTC\MainBundle\Controller;
+namespace SMTC\MainBundle\Controller\Example;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,6 +15,15 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class ResponseController extends Controller
 {
+    /**
+     * @Route("/", name="examples_responses")
+     * @Template()
+     */
+    public function responsesAction()
+    {
+        return array();
+    }
+
     /**
      * @Route("/response", name="responses_response")
      */
