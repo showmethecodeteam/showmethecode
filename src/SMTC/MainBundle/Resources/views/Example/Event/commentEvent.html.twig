@@ -1,0 +1,20 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <form action="{{ path('examples_events_comment') }}" method="POST" novalidate>
+                {{ form_row(form.username) }}
+                {{ form_row(form.message) }}
+                {{ form_rest(form) }}
+                <button type="submit" class="btn btn-success">
+                    Enviar
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}

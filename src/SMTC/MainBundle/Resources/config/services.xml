@@ -10,11 +10,6 @@
             <argument type="service" id="smtc.main.service.github_locator" />
         </service>
 
-        <service id="smtc.main.listener.controller_listener" class="SMTC\MainBundle\EventListener\ControllerListener">
-            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
-            <argument type="service" id="smtc.main.twig.extension.showmethecode" />
-        </service>
-
         <service id="smtc.main.service.github_locator" class="SMTC\MainBundle\Service\GitHubLocator" public="false">
             <argument type="service" id="templating.name_parser" />
             <argument type="service" id="templating.locator" />
