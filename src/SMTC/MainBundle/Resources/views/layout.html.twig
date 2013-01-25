@@ -45,9 +45,9 @@
         <div class="container">
             <div class="row">
                 <div class="span12">
-                    {% if app.session.flashbag.has('location') %}
+                    {% if app.session.flashbag.has('smtc_success') %}
                         <div class="alert alert-success">
-                            {% for flashMessage in app.session.flashbag.get('location') %}
+                            {% for flashMessage in app.session.flashbag.get('smtc_success') %}
                                 <p>{{ flashMessage }}</p>
                             {% endfor %}
                         </div>

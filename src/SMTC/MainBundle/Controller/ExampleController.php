@@ -79,7 +79,7 @@ class ExampleController extends Controller
                 // do amazing things
 
                 $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('location', 'El password es correcto');
+                $flashBag->add('smtc_success', 'El password es correcto');
 
                 return $this->redirect($this->generateUrl('examples_userpassword'));
             }
@@ -124,9 +124,9 @@ class ExampleController extends Controller
                 // do amazing things
 
                 $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('location', 'Se ha creado una localización:');
-                $flashBag->add('location', sprintf('Dirección: %s', $location->address));
-                $flashBag->add('location', sprintf('Ciudad: %s', $location->city->getName()));
+                $flashBag->add('smtc_success', 'Se ha creado una localización:');
+                $flashBag->add('smtc_success', sprintf('Dirección: %s', $location->address));
+                $flashBag->add('smtc_success', sprintf('Ciudad: %s', $location->city->getName()));
 
                 return $this->redirect($this->generateUrl('examples_dependent_selects'));
             }
@@ -159,9 +159,9 @@ class ExampleController extends Controller
                 // do amazing things
 
                 $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('location', 'Se ha editado una localización:');
-                $flashBag->add('location', sprintf('Dirección: %s', $location->address));
-                $flashBag->add('location', sprintf('Ciudad: %s', $location->city->getName()));
+                $flashBag->add('smtc_success', 'Se ha editado una localización:');
+                $flashBag->add('smtc_success', sprintf('Dirección: %s', $location->address));
+                $flashBag->add('smtc_success', sprintf('Ciudad: %s', $location->city->getName()));
 
                 return $this->redirect($this->generateUrl('examples_dependent_selects'));
             }
