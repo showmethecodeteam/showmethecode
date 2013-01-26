@@ -12,6 +12,11 @@ class Comment
     public $username;
 
     /**
+     * @Assert\Email()
+     */
+    public $email;
+
+    /**
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min = 6,
@@ -21,4 +26,8 @@ class Comment
     public $message;
 
     public $ip;
+
+    public $approved = true;
+
+    public $notified = false;
 }

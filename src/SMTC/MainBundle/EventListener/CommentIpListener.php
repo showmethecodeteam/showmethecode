@@ -7,7 +7,7 @@ use SMTC\MainBundle\Event\CommentEvent;
 
 class CommentIpListener
 {
-    protected $request;
+    private $request;
 
     public function __construct(Request $request)
     {

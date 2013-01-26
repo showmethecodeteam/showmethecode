@@ -7,8 +7,10 @@
         <div class="span12">
             <form action="{{ path('examples_events_comment') }}" method="POST" novalidate>
                 {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
                 {{ form_row(form.message) }}
                 {{ form_rest(form) }}
+                <p><small>Palabras reservadas: show, me, the, code</small></p>
                 <button type="submit" class="btn btn-success">
                     Enviar
                 </button>

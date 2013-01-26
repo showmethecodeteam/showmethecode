@@ -41,13 +41,27 @@ class EventController extends Controller
 
                 // Dispatch Event
                 $commentEvent = new CommentEvent($comment);
-                $this->container->get('event_dispatcher')->dispatch(CommentEvents::SUBMITTED, $commentEvent);
+                $commentEvent = $this->container->get('event_dispatcher')->dispatch(CommentEvents::SUBMITTED, $commentEvent);
 
                 $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('smtc_success', 'Se ha creado un comentario:');
-                $flashBag->add('smtc_success', sprintf('Username: %s', $comment->username));
-                $flashBag->add('smtc_success', sprintf('Mensaje: %s', $comment->message));
-                $flashBag->add('smtc_success', sprintf('IP: %s', $comment->ip));
+
+                if ($commentEvent->isPropagationStopped()) {
+                    $flashBag->add('smtc_error', 'No se ha podido crear el comentario:');
+                    $flashBag->add('smtc_error', sprintf('Username: %s', $comment->username));
+                    $flashBag->add('smtc_error', sprintf('Email: %s', $comment->email));
+                    $flashBag->add('smtc_error', sprintf('Mensaje: %s', $comment->message));
+                    $flashBag->add('smtc_error', sprintf('IP: %s', $comment->ip));
+                    $flashBag->add('smtc_error', sprintf('Aprobado: %s', $comment->approved ? 'Sí' : 'No'));
+                    $flashBag->add('smtc_error', sprintf('Notificado: %s', $comment->notified ? 'Sí' : 'No'));
+                } else {
+                    $flashBag->add('smtc_success', 'Se ha creado un comentario:');
+                    $flashBag->add('smtc_success', sprintf('Username: %s', $comment->username));
+                    $flashBag->add('smtc_success', sprintf('Email: %s', $comment->email));
+                    $flashBag->add('smtc_success', sprintf('Mensaje: %s', $comment->message));
+                    $flashBag->add('smtc_success', sprintf('IP: %s', $comment->ip));
+                    $flashBag->add('smtc_success', sprintf('Aprobado: %s', $comment->approved ? 'Sí' : 'No'));
+                    $flashBag->add('smtc_success', sprintf('Notificado: %s', $comment->notified ? 'Sí' : 'No'));
+                }
 
                 return $this->redirect($this->generateUrl('examples_events_comment'));
             }

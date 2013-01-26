@@ -5,13 +5,23 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="smtc.main.listener.controller_listener" class="SMTC\MainBundle\EventListener\ControllerListener">
-            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
             <argument type="service" id="smtc.main.twig.extension.showmethecode" />
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
-        <service id="smtc.main.listener.comment_ip_listener" class="SMTC\MainBundle\EventListener\CommentIpListener" scope="request">
-            <tag name="kernel.event_listener" event="comment.submitted" method="onCommentSubmitted" />
+        <service id="smtc.main.listener.comment_ip" class="SMTC\MainBundle\EventListener\CommentIpListener" scope="request">
             <argument type="service" id="request" />
+            <tag name="kernel.event_listener" event="comment.submitted" method="onCommentSubmitted" priority="5" />
+        </service>
+
+        <service id="smtc.main.listener.comment_banned_words" class="SMTC\MainBundle\EventListener\CommentBannedWordsSubscriber">
+            <argument>%banned_words%</argument>
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="smtc.main.listener.comment_mailer" class="SMTC\MainBundle\EventListener\CommentMailerSubscriber">
+            <argument type="service" id="mailer" />
+            <tag name="kernel.event_subscriber" />
         </service>
     </services>
 </container>
