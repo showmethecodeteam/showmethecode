@@ -45,13 +45,16 @@
         <div class="container">
             <div class="row">
                 <div class="span12">
-                    {% if app.session.flashbag.has('smtc_success') %}
-                        <div class="alert alert-success">
-                            {% for flashMessage in app.session.flashbag.get('smtc_success') %}
-                                <p>{{ flashMessage }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
+                    {% for notice_level in ['success','error','info', 'warning'] %}
+                        {% set session_var = 'smtc_' ~ notice_level %}
+                        {% if app.session.flashbag.has(session_var) %}
+                            <div class="alert {{ 'alert-' ~ notice_level }}">
+                                {% for flash in app.session.flashbag.get(session_var) %}
+                                    <p>{{ flash }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
             {% block content %}{% endblock %}
