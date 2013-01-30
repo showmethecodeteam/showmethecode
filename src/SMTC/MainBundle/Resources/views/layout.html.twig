@@ -66,7 +66,9 @@
                         <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#shomethecode">
                             Show me the code! <b class="caret"></b>
                         </button>
-
+                        {% if article_link is defined %}
+                            <a href="{{ article_link }}" class="btn btn-success">Ir al artículo</a>
+                        {% endif %}
                         <div id="shomethecode" class="collapse">{{ code|raw }}</div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@
                 {{ form_row(form.email) }}
                 {{ form_row(form.message) }}
                 {{ form_rest(form) }}
-                <p><small>Palabras reservadas: show, me, the, code</small></p>
+                <p><small>Palabras reservadas: {{ global.banned_words|join(", ") }}</small></p>
                 <button type="submit" class="btn btn-success">
                     Enviar
                 </button>

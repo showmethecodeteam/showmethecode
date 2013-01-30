@@ -21,6 +21,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        global:
+            banned_words: %banned_words%
 
 # Assetic Configuration
 assetic:
