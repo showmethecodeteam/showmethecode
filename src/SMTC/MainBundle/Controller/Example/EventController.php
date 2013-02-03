@@ -43,24 +43,10 @@ class EventController extends Controller
                 $commentEvent = new CommentEvent($comment);
                 $commentEvent = $this->container->get('event_dispatcher')->dispatch(CommentEvents::SUBMITTED, $commentEvent);
 
-                $flashBag = $this->get('session')->getFlashBag();
-
                 if ($commentEvent->isPropagationStopped()) {
-                    $flashBag->add('smtc_error', 'No se ha podido crear el comentario:');
-                    $flashBag->add('smtc_error', sprintf('Username: %s', $comment->username));
-                    $flashBag->add('smtc_error', sprintf('Email: %s', $comment->email));
-                    $flashBag->add('smtc_error', sprintf('Mensaje: %s', $comment->message));
-                    $flashBag->add('smtc_error', sprintf('IP: %s', $comment->ip));
-                    $flashBag->add('smtc_error', sprintf('Aprobado: %s', $comment->approved ? 'Sí' : 'No'));
-                    $flashBag->add('smtc_error', sprintf('Notificado: %s', $comment->notified ? 'Sí' : 'No'));
+                    $this->addCommentToFlashBag('smtc_error', 'No se ha podido crear el comentario', $comment);
                 } else {
-                    $flashBag->add('smtc_success', 'Se ha creado un comentario:');
-                    $flashBag->add('smtc_success', sprintf('Username: %s', $comment->username));
-                    $flashBag->add('smtc_success', sprintf('Email: %s', $comment->email));
-                    $flashBag->add('smtc_success', sprintf('Mensaje: %s', $comment->message));
-                    $flashBag->add('smtc_success', sprintf('IP: %s', $comment->ip));
-                    $flashBag->add('smtc_success', sprintf('Aprobado: %s', $comment->approved ? 'Sí' : 'No'));
-                    $flashBag->add('smtc_success', sprintf('Notificado: %s', $comment->notified ? 'Sí' : 'No'));
+                    $this->addCommentToFlashBag('smtc_success', 'Se ha creado un comentario', $comment);
                 }
 
                 return $this->redirect($this->generateUrl('examples_events_comment'));
@@ -70,5 +56,18 @@ class EventController extends Controller
         return array(
             'form' => $form->createView()
         );
+    }
+
+    private function addCommentToFlashBag($flashKey, $title, $comment)
+    {
+        $flashBag = $this->get('session')->getFlashBag();
+
+        $flashBag->add($flashKey, $title);
+        $flashBag->add($flashKey, sprintf('Username: %s', $comment->username));
+        $flashBag->add($flashKey, sprintf('Email: %s', $comment->email));
+        $flashBag->add($flashKey, sprintf('Mensaje: %s', $comment->message));
+        $flashBag->add($flashKey, sprintf('IP: %s', $comment->ip));
+        $flashBag->add($flashKey, sprintf('Aprobado: %s', $comment->approved ? 'Sí' : 'No'));
+        $flashBag->add($flashKey, sprintf('Notificado: %s', $comment->notified ? 'Sí' : 'No'));
     }
 }
