@@ -47,7 +47,7 @@ class ShowMeTheCodeExtension extends \Twig_Extension
 
         $methodName = $this->controller[1];
 
-        $controllerLink = $this->githubLocator->getMethodControllerLink($controllerClass, $methodName);
+        $controllerLink = $this->githubLocator->getMethodClassLink($controllerClass, $methodName);
         $templateLink = $this->githubLocator->getTemplateLink($template->getTemplateName());
 
         $controller = $this->getControllerCode($controllerClass, $methodName);

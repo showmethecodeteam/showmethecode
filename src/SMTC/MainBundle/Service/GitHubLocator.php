@@ -34,15 +34,15 @@ class GitHubLocator
     }
 
     /**
-     * Gets the link to the controller's method
+     * Gets the link to a class' method
      *
-     * @param  string $controllerClass
+     * @param  string $className
      * @param  string $methodName
      * @return string
      */
-    public function getMethodControllerLink($controllerClass, $methodName)
+    public function getMethodClassLink($className, $methodName)
     {
-        $reflectionClass = new \ReflectionClass($controllerClass);
+        $reflectionClass = new \ReflectionClass($className);
         $method = $reflectionClass->getMethod($methodName);
 
         $relativeClassDir = str_replace(dirname($this->rootDir)."/", "", $reflectionClass->getFilename());
