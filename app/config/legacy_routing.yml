@@ -1,0 +1,25 @@
+legacy_examples:
+    pattern: /old_examples
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: examples
+        permanent: true
+
+legacy_examples_dependent_selects_location_edit:
+    pattern: /old_location/{slug}/edit
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: examples_dependent_selects_location_edit
+
+legacy_examples_dependent_selects_location_edit:
+    pattern: /old_location_default/edit
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: examples_dependent_selects_location_edit
+        slug: valencia
+
+legacy_google:
+    pattern: /go_to_google
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: http://google.es

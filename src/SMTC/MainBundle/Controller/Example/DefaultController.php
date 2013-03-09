@@ -15,12 +15,5 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="examples")
-     * @Template()
-     */
-    public function examplesAction()
-    {
-        return array();
-    }
+
 }

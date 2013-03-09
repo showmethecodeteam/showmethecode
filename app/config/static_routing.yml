@@ -1,0 +1,17 @@
+homepage:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'MainBundle:Default:index.html.twig'
+        maxAge: 86400
+        sharedMaxAge: 86400
+        private: false
+
+examples:
+    pattern: /ejemplo/
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'MainBundle:Example\\Default:examples.html.twig'
+        maxAge: 86400
+        sharedMaxAge: 86400
+        private: false
