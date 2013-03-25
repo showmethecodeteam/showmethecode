@@ -74,7 +74,7 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (array_key_exists('country', $data)) {
+        if (array_key_exists('province', $data)) {
             $province = $data['province'];
             $country = array_key_exists('country', $data) ? $data['country'] : null;
             $this->addProvinceForm($form, $province, $country);
