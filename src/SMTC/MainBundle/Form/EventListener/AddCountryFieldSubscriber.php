@@ -61,9 +61,7 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (array_key_exists('country', $data)) {
-            $country = $data['country'];
-            $this->addCountryForm($form, $country);
-        }
+        $country = array_key_exists('country', $data) ? $data['country'] : null;
+        $this->addCountryForm($form, $country);
     }
 }

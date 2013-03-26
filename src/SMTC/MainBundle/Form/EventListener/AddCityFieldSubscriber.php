@@ -72,9 +72,7 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (array_key_exists('province', $data)) {
-            $province = $data['province'];
-            $this->addCityForm($form, $province);
-        }
+        $province = array_key_exists('province', $data) ? $data['province'] : null;
+        $this->addCityForm($form, $province);
     }
 }
