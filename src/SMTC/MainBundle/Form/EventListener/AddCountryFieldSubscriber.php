@@ -5,6 +5,7 @@ namespace SMTC\MainBundle\Form\EventListener;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -48,7 +49,9 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $country = ($data->city) ? $data->city->getProvince()->getCountry() : null ;
+        $accessor = PropertyAccess::getPropertyAccessor();
+        $city = $accessor->getValue($data, 'city');
+        $country = ($city) ? $city->getProvince()->getCountry() : null ;
         $this->addCountryForm($form, $country);
     }
 

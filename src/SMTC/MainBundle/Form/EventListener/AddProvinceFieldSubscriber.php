@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityRepository;
 use SMTC\MainBundle\Entity\Country;
 
@@ -60,7 +61,9 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $province = ($data->city) ? $data->city->getProvince() : null ;
+        $accessor = PropertyAccess::getPropertyAccessor();
+        $city = $accessor->getValue($data, 'city');
+        $province = ($city) ? $city->getProvince() : null ;
         $country = ($province) ? $province->getCountry() : null ;
         $this->addProvinceForm($form, $province, $country);
     }
