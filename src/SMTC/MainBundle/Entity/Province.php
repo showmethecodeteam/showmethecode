@@ -165,7 +165,7 @@ class Province
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCities()
+    public function getCitys()
     {
         return $this->cities;
     }
@@ -173,5 +173,28 @@ class Province
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * Add cities
+     *
+     * @param  \SMTC\MainBundle\Entity\City $cities
+     * @return Province
+     */
+    public function addCity(\SMTC\MainBundle\Entity\City $cities)
+    {
+        $this->cities[] = $cities;
+
+        return $this;
+    }
+
+    /**
+     * Remove cities
+     *
+     * @param \SMTC\MainBundle\Entity\City $cities
+     */
+    public function removeCity(\SMTC\MainBundle\Entity\City $cities)
+    {
+        $this->cities->removeElement($cities);
     }
 }

@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
-use Doctrine\Common\Collections\ArrayCollection;
 use SMTC\UserBundle\Entity\Admin;
 use SMTC\UserBundle\Entity\Player;
 
@@ -89,13 +88,11 @@ class User implements UserInterface, EquatableInterface, \Serializable
      */
     private $createdAt;
 
-
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->createdAt = new \DateTime();
     }
-
 
     public function serialize()
     {
@@ -185,7 +182,6 @@ class User implements UserInterface, EquatableInterface, \Serializable
 
         return $this;
     }
-
 
     public function addRole($role)
     {
@@ -286,4 +282,29 @@ class User implements UserInterface, EquatableInterface, \Serializable
         return $this->createdAt;
     }
 
+    /**
+     * Set salt
+     *
+     * @param  string $salt
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param  \DateTime $createdAt
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
 }

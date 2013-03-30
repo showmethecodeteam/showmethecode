@@ -2,7 +2,6 @@
 
 namespace SMTC\MainBundle\Service;
 
-use CG\Core\ClassUtils;
 use Symfony\Component\Templating\TemplateNameParserInterface;
 use Symfony\Component\Config\FileLocatorInterface;
 

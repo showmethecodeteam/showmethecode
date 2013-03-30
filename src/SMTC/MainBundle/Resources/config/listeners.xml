@@ -9,8 +9,7 @@
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
-        <service id="smtc.main.listener.comment_ip" class="SMTC\MainBundle\EventListener\CommentIpListener" scope="request">
-            <argument type="service" id="request" />
+        <service id="smtc.main.listener.comment_ip" class="SMTC\MainBundle\EventListener\CommentIpListener">
             <tag name="kernel.event_listener" event="comment.submitted" method="onCommentSubmitted" priority="5" />
         </service>
 

@@ -40,7 +40,7 @@ class EventController extends Controller
                 // do amazing things
 
                 // Dispatch Event
-                $commentEvent = new CommentEvent($comment);
+                $commentEvent = new CommentEvent($request, $comment);
                 $commentEvent = $this->container->get('event_dispatcher')->dispatch(CommentEvents::SUBMITTED, $commentEvent);
 
                 if ($commentEvent->isPropagationStopped()) {

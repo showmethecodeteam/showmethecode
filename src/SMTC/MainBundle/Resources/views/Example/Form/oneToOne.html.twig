@@ -5,9 +5,12 @@
 {% block content %}
     <div class="row">
         <div class="span12">
-            <ul>
-                <li><a href="{{ path('examples_events_comment') }}">Añadir IP al comentario</a></li>
-            </ul>
+            <form action="{{ path('examples_events_comment') }}" method="POST" novalidate>
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-success">
+                    Enviar
+                </button>
+            </form>
         </div>
     </div>
 {% endblock %}
