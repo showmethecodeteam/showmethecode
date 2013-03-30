@@ -36,7 +36,7 @@ class ShowMeTheCodeExtension extends \Twig_Extension
     /**
      * Gets the code from the template
      * @param  Twig_Template $template
-     * @return HTML to display
+     * @return HTML          to display
      */
     public function getCode($template)
     {
