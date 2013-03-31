@@ -160,18 +160,18 @@ class Province
         $this->cities->removeElement($cities);
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * Get cities
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCitys()
+    public function getCities()
     {
         return $this->cities;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
     }
 }
