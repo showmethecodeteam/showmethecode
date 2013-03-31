@@ -1,5 +1,5 @@
 {
-    "hash": "d926a99ad737f8e03cf6d38de04a1d17",
+    "hash": "1e3b14feb95e806cd24b301f14629f92",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1441,22 +1441,22 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v2.2.0",
+            "version": "dev-master",
             "target-dir": "Sensio/Bundle/FrameworkExtraBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioFrameworkExtraBundle.git",
-                "reference": "v2.2.0"
+                "reference": "148da1657cde54e2f5688b96caa2e350e7e28637"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensio/SensioFrameworkExtraBundle/zipball/v2.2.0",
-                "reference": "v2.2.0",
+                "url": "https://api.github.com/repos/sensio/SensioFrameworkExtraBundle/zipball/148da1657cde54e2f5688b96caa2e350e7e28637",
+                "reference": "148da1657cde54e2f5688b96caa2e350e7e28637",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": ">=2.2,<3.0",
-                "symfony/framework-bundle": "2.2.*"
+                "symfony/framework-bundle": ">=2.2,<3.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -1484,7 +1484,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2013-02-28 14:13:52"
+            "time": "2013-03-27 06:44:29"
         },
         {
             "name": "sensio/generator-bundle",
@@ -1964,6 +1964,7 @@
     "minimum-stability": "alpha",
     "stability-flags": {
         "twig/extensions": 20,
+        "sensio/framework-extra-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "raulfraile/ladybug-bundle": 20
     },
