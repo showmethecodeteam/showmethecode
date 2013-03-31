@@ -4,7 +4,7 @@
 
 {% form_theme form _self %}
 
-{% block _user_addresses_addresses_entry_row %}
+{% block _user_addresses_entry_row %}
 {% spaceless %}
     <div class="span3 well address">
         <button type="button" class="close">&times;</button>
@@ -15,7 +15,7 @@
 {% endspaceless %}
 {% endblock %}
 
-{% block _user_addresses_addresses_entry_label %}
+{% block _user_addresses_entry_label %}
 {% endblock %}
 
 {% block javascripts %}
@@ -112,7 +112,7 @@
 {% block content %}
     <div class="row">
         <div class="span12">
-            <form action="{{ path('examples_forms_one_to_many_edit', {'username': user.username}) }}" method="POST" novalidate>
+            <form action="{{ path('examples_forms_user_edit', {'username': user.username}) }}" method="POST" novalidate>
                 {{ form_widget(form) }}
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">

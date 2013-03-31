@@ -100,7 +100,7 @@
                 });
             });
 
-            $(".close").on('click', function(){
+            $(document).on('click', '.close', function(){
                 $(this).closest('.address').fadeOut(500, function() {
                     $(this).remove();
                 });

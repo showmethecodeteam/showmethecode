@@ -18,13 +18,25 @@
                         </li>
                     </ul>
                 </li>
-                <li>ManyToOne (Usuario con direcciones)
+                <li>OneToMany (Usuario con direcciones)
                     <ul>
                         <li><a href="{{ path('examples_forms_one_to_many_create') }}">Crear Usuario</a></li>
                         <li>Editar Usuario
                             <ul>
                                 {% for user in users %}
-                                    <li><a href="{{ path('examples_forms_one_to_many_edit', {'username': user.username}) }}">Editar {{ user.profile.name }}</a></li>
+                                    <li><a href="{{ path('examples_forms_one_to_many_edit', {'username': user.username}) }}">Editar {{ user.username|humanize }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>OneToOne y ManyToOne (Usuario con perfil y direcciones)
+                    <ul>
+                        <li><a href="{{ path('examples_forms_user_create') }}">Crear Usuario</a></li>
+                        <li>Editar Usuario
+                            <ul>
+                                {% for user in users %}
+                                    <li><a href="{{ path('examples_forms_user_edit', {'username': user.username}) }}">Editar {{ user.username|humanize }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
