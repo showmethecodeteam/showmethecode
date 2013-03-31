@@ -13,8 +13,8 @@ class PasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('oldPassword', 'password', array(
-            'mapped' => false,
-            'label'  => 'Password',
+            'mapped'      => false,
+            'label'       => 'Password',
             'constraints' => array(
                 new NotBlank(),
                 new UserPassword()
