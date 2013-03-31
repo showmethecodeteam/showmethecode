@@ -4,12 +4,13 @@ namespace SMTC\MainBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\Yaml\Yaml;
 use SMTC\MainBundle\Entity\Country;
 use SMTC\MainBundle\Entity\Province;
 use SMTC\MainBundle\Entity\City;
 
-class LoadCountryProvinceAndCityData extends AbstractFixture
+class LoadCountryProvinceAndCityData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -43,10 +44,20 @@ class LoadCountryProvinceAndCityData extends AbstractFixture
                     $newCity->setProvince($newProvince);
 
                     $manager->persist($newCity);
+
+                    $this->addReference(sprintf('city-%s', $city['slug']), $newCity);
                 }
             }
         }
 
         $manager->flush();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrder()
+    {
+        return 1;
     }
 }

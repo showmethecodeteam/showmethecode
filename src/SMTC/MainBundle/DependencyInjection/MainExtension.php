@@ -26,5 +26,6 @@ class MainExtension extends Extension
         $loader->load('services.xml');
         $loader->load('security.xml');
         $loader->load('listeners.xml');
+        $loader->load('forms.xml');
     }
 }

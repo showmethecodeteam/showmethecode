@@ -1,0 +1,128 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% form_theme form _self %}
+
+{% block _user_addresses_addresses_entry_row %}
+{% spaceless %}
+    <div class="span3 well address">
+        <button type="button" class="close">&times;</button>
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endspaceless %}
+{% endblock %}
+
+{% block _user_addresses_addresses_entry_label %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+        function addTagForm(collectionHolder) {
+            // Get the data-prototype explained earlier
+            var prototype = collectionHolder.data('prototype');
+
+            // get the new index
+            var index = collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a address" link li
+            var $newFormLi = $('<div></div>').append(newForm);
+            collectionHolder.append($newFormLi);
+        }
+
+        // Get the div that holds the collection of addresses
+        var collectionHolder = $('div.addresses');
+
+        // setup an "add a address" link
+        var $newLinkLi = $('<a href="#" class="btn btn-mini btn-info add_address_link"><i class="icon-plus icon-white"></i> Añadir una dirección</a>');
+
+        $(function(){
+
+            // add the "add a address" anchor and li to the addresses div
+            collectionHolder.parent().append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            collectionHolder.data('index', collectionHolder.find(':input').length);
+
+            $newLinkLi.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new address form (see next code block)
+                addTagForm(collectionHolder);
+            });
+
+
+            $(document).on('change', '.country_selector', function(){
+                var $this = $(this);
+                var data = {
+                    country_id: $this.val()
+                };
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ path("select_provinces") }}',
+                    data: data,
+                    success: function(data) {
+                        var $address = $this.closest('.address');
+                        $address.find('.province_selector').html(data);
+                        $address.find('.city_selector').html("<option>Ciudad</option>");
+                    }
+                });
+            });
+
+            $(document).on('change', '.province_selector', function(){
+                var $this = $(this);
+                var data = {
+                    province_id: $this.val()
+                };
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ path("select_cities") }}',
+                    data: data,
+                    success: function(data) {
+                        var $address = $this.closest('.address');
+                        $address.find('.city_selector').html(data);
+                    }
+                });
+            });
+
+            $(".close").on('click', function(){
+                $(this).closest('.address').fadeOut(500, function() {
+                    $(this).remove();
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <form action="{{ path('examples_forms_one_to_many_edit', {'username': user.username}) }}" method="POST" novalidate>
+                {{ form_widget(form) }}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}
+{% set article_link = 'http://showmethecode.es/php/symfony/symfony2-custom-events/' %}

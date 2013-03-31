@@ -1,0 +1,39 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <ul>
+                <li>OneToOne (Usuario con perfil)
+                    <ul>
+                        <li><a href="{{ path('examples_forms_one_to_one_create') }}">Crear Usuario</a></li>
+                        <li>Editar Usuario
+                            <ul>
+                                {% for user in users %}
+                                    <li><a href="{{ path('examples_forms_one_to_one_edit', {'username': user.username}) }}">Editar {{ user.profile.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>ManyToOne (Usuario con direcciones)
+                    <ul>
+                        <li><a href="{{ path('examples_forms_one_to_many_create') }}">Crear Usuario</a></li>
+                        <li>Editar Usuario
+                            <ul>
+                                {% for user in users %}
+                                    <li><a href="{{ path('examples_forms_one_to_many_edit', {'username': user.username}) }}">Editar {{ user.profile.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}
+{% set article_link = 'http://showmethecode.es/php/symfony/symfony2-custom-events/' %}

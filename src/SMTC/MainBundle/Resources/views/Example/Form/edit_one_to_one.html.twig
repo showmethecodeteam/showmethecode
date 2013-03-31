@@ -5,7 +5,7 @@
 {% block content %}
     <div class="row">
         <div class="span12">
-            <form action="{{ path('examples_events_comment') }}" method="POST" novalidate>
+            <form action="{{ path('examples_forms_one_to_one_edit', {'username': user.username}) }}" method="POST" novalidate>
                 {{ form_widget(form) }}
                 <button type="submit" class="btn btn-success">
                     Enviar
