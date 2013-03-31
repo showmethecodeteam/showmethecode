@@ -33,6 +33,9 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
             'class'         => 'MainBundle:Province',
             'empty_value'   => 'Provincia',
             'mapped'        => false,
+            'attr'          => array(
+                'class' => 'province_selector',
+            ),
             'query_builder' => function (EntityRepository $repository) use ($country) {
                 $qb = $repository->createQueryBuilder('province')
                     ->innerJoin('province.country', 'country');

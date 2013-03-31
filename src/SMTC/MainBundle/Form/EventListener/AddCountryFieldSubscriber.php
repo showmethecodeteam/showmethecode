@@ -32,6 +32,9 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
             'class'         => 'MainBundle:Country',
             'mapped'        => false,
             'empty_value'   => 'País',
+            'attr'          => array(
+                'class' => 'country_selector',
+            ),
             'query_builder' => function (EntityRepository $repository) {
                 $qb = $repository->createQueryBuilder('country');
 
