@@ -53,8 +53,7 @@ class FormController extends Controller
                 $flashBag->add('smtc_success', sprintf('Username: %s', $user->getUsername()));
                 $flashBag->add('smtc_success', sprintf('Nombre: %s', $user->getProfile()->getName()));
 
-                // Añadir evento kernel.terminate para restaurar la bbddhgycdexcfrhy
-                return $this->redirect($this->generateUrl('examples_forms_one_to_one_create'));
+                return $this->redirect($this->generateUrl('examples_forms'));
             }
         }
 
@@ -86,10 +85,7 @@ class FormController extends Controller
                 $flashBag->add('smtc_success', sprintf('Username: %s', $user->getUsername()));
                 $flashBag->add('smtc_success', sprintf('Nombre: %s', $user->getProfile()->getName()));
 
-                // Añadir evento kernel.terminate para restaurar la bbddhgycdexcfrhy
-                return $this->redirect($this->generateUrl('examples_forms_one_to_one_edit', array(
-                    'username' => $user->getUsername()
-                )));
+                return $this->redirect($this->generateUrl('examples_forms'));
             }
         }
 
@@ -128,8 +124,7 @@ class FormController extends Controller
                     }
                 }
 
-                // Añadir evento kernel.terminate para restaurar la bbddhgycdexcfrhy
-                return $this->redirect($this->generateUrl('examples_forms_one_to_many_create'));
+                return $this->redirect($this->generateUrl('examples_forms'));
             }
         }
 
@@ -166,10 +161,7 @@ class FormController extends Controller
                     }
                 }
 
-                // Añadir evento kernel.terminate para restaurar la bbddhgycdexcfrhy
-                return $this->redirect($this->generateUrl('examples_forms_one_to_many_edit', array(
-                    'username' => $user->getUsername()
-                )));
+                return $this->redirect($this->generateUrl('examples_forms'));
             }
         }
 
@@ -211,8 +203,7 @@ class FormController extends Controller
                     }
                 }
 
-                // Añadir evento kernel.terminate para restaurar la bbddhgycdexcfrhy
-                return $this->redirect($this->generateUrl('examples_forms_user_create'));
+                return $this->redirect($this->generateUrl('examples_forms'));
             }
         }
 
@@ -250,10 +241,7 @@ class FormController extends Controller
                     }
                 }
 
-                // Añadir evento kernel.terminate para restaurar la bbddhgycdexcfrhy
-                return $this->redirect($this->generateUrl('examples_forms_user_edit', array(
-                    'username' => $user->getUsername()
-                )));
+                return $this->redirect($this->generateUrl('examples_forms'));
             }
         }
 
