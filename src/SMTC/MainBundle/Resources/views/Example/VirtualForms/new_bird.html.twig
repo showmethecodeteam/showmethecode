@@ -1,0 +1,22 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <h2>Pájaro</h2>
+            <form action="{{ path('examples_virtual_forms_bird_create') }}" method="POST" novalidate>
+                {{ form_widget(form) }}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}
+{% set article_link = 'http://showmethecode.es/php/symfony/symfony2-opcion-virtual-en-los-formularios/' %}
