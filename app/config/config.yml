@@ -24,6 +24,7 @@ twig:
     globals:
         global:
             banned_words: %banned_words%
+            button_msg: %smtc_button_msg%
 
 # Assetic Configuration
 assetic:
