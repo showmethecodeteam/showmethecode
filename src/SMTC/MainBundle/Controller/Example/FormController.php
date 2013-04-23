@@ -13,6 +13,7 @@ use SMTC\MainBundle\Entity\Address;
 use SMTC\MainBundle\Form\Type\UserProfileType;
 use SMTC\MainBundle\Form\Type\UserAddressesType;
 use SMTC\MainBundle\Form\Type\UserType;
+use SMTC\MainBundle\Form\Type\EditUsersType;
 
 class FormController extends Controller
 {
@@ -209,6 +210,49 @@ class FormController extends Controller
 
         return array(
             'form' => $form->createView()
+        );
+    }
+
+    /**
+     * @Route("/forms/user/edit", name="examples_forms_users_edit")
+     * @Template("MainBundle:Example\Form:edit_users.html.twig")
+     */
+    public function usersEditAction(Request $request)
+    {
+        $users = $this->getDoctrine()->getManager()->getRepository("MainBundle:User")->findAll();
+
+        $form = $this->createForm(new EditUsersType(), array('users' => $users));
+
+        if ($request->isMethod("POST")) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                foreach ($users as $user) {
+                    $em->persist($user);
+                }
+
+                // $em->flush();
+
+                $flashBag = $this->get('session')->getFlashBag();
+                $flashBag->add('smtc_success', 'Se han editado los usuarios:');
+                foreach ($users as $user) {
+                    $flashBag->add('smtc_success', sprintf('Username: %s', $user->getUsername()));
+                    $flashBag->add('smtc_success', sprintf('Nombre: %s', $user->getProfile()->getName()));
+                    if (0 !== count($user->getAddresses())) {
+                        $flashBag->add('smtc_success', 'Direcciones:');
+                        foreach ($user->getAddresses() as $address) {
+                            $flashBag->add('smtc_success', sprintf('&nbsp;&nbsp;%s (%s)', $address->getStreet(), $address->getCity()->getName()));
+                        }
+                    }
+                }
+
+                return $this->redirect($this->generateUrl('examples_forms'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
         );
     }
 

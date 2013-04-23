@@ -54,6 +54,11 @@ class User
         $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->profile ? $this->profile->getName() : $this->username;
+    }
+
     /**
      * Get id
      *
