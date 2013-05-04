@@ -27,9 +27,9 @@ class Address
     protected $id;
 
     /**
-     * @var string $name
+     * @var string $street
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="street", type="string", length=255)
      * @Assert\NotBlank()
      */
     protected $street;
