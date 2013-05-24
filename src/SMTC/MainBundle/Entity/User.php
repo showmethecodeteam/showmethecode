@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * SMTC\MainBundle\Entity\User
  *
  * @ORM\Table(name="main_user")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="SMTC\MainBundle\Entity\UserRepository")
  */
 class User
 {

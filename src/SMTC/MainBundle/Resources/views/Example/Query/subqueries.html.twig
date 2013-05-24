@@ -1,0 +1,25 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <h2>Ver usuarios con direcciones en</h2>
+            <ul>
+                {% for country in countries %}
+                    <li><a href="{{ path('examples_query_exists', {'slug': country.slug}) }}">{{ country.name }}</a></li>
+                {% endfor %}
+            </ul>
+            <h2>Ver usuarios con todas las direcciones en</h2>
+            <ul>
+                {% for country in countries %}
+                    <li><a href="{{ path('examples_query_not_exists', {'slug': country.slug}) }}">{{ country.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}
+{% set article_link = 'http://showmethecode.es/php/doctrine2/doctrine2-subconsultas/' %}

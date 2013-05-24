@@ -24,7 +24,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
                     ),
                     array(
                         'street' => 'Perico 3',
-                        'city'   => 'gandia',
+                        'city'   => 'lagos',
                     ),
                 ),
             ),

@@ -1,0 +1,32 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <h2>{{ subtitle }}</h2>
+            <table class="table">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Direcciones</th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            <ul>
+                                {% for address in user.addresses %}
+                                    <li>{{ address.street }} ({{ address.city.province.country.name }})</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}
+{% set article_link = 'http://showmethecode.es/php/doctrine2/doctrine2-subconsultas/' %}

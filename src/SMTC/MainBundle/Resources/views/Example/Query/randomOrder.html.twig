@@ -8,7 +8,7 @@
             <h2>Ver ciudades aleatoriamente en</h2>
             <ul>
                 {% for country in countries %}
-                    <li><a href="{{ path('examples_random_order_country', {'slug': country.slug}) }}">{{ country.name }}</a></li>
+                    <li><a href="{{ path('examples_query_random_order_country', {'slug': country.slug}) }}">{{ country.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
