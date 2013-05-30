@@ -25,6 +25,9 @@ twig:
         global:
             banned_words: %banned_words%
             button_msg: %smtc_button_msg%
+    form:
+        resources:
+            - 'MainBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:

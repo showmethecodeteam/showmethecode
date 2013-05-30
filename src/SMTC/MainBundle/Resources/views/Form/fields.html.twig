@@ -1,0 +1,10 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_widget_simple %}
+{% spaceless %}
+    {{ parent() }}
+    {% if help %}
+        <p class="help-block">{{ help }}</p>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_widget_simple %}

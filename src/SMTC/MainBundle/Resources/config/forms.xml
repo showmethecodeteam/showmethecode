@@ -7,5 +7,9 @@
         <service id="smtc.main.form.collection_type_extension" class="SMTC\MainBundle\Form\Extension\CollectionTypeExtension">
             <tag name="form.type_extension" alias="collection" />
         </service>
+
+        <service id="smtc.main.form.help_type_extension" class="SMTC\MainBundle\Form\Extension\HelpTypeExtension">
+            <tag name="form.type_extension" alias="field" />
+        </service>
     </services>
 </container>
