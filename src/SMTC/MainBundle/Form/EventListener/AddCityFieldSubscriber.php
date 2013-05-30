@@ -27,9 +27,9 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function addCityForm($form, $province)
+    private function addCityForm($form, $city, $province)
     {
-        $form->add($this->factory->createNamed('city','entity', null, array(
+        $form->add($this->factory->createNamed('city','entity', $city, array(
             'class'         => 'MainBundle:City',
             'empty_value'   => 'Ciudad',
             'attr'          => array(
@@ -65,7 +65,7 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
         $accessor = PropertyAccess::getPropertyAccessor();
         $city = $accessor->getValue($data, 'city');
         $province = ($city) ? $city->getProvince() : null ;
-        $this->addCityForm($form, $province);
+        $this->addCityForm($form, $city, $province);
     }
 
     public function preBind(FormEvent $event)
@@ -78,6 +78,7 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
         }
 
         $province = array_key_exists('province', $data) ? $data['province'] : null;
-        $this->addCityForm($form, $province);
+        $city = array_key_exists('city', $data) ? $data['city'] : null;
+        $this->addCityForm($form, $city, $province);
     }
 }
