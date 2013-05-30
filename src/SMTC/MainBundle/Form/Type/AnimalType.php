@@ -12,13 +12,15 @@ class AnimalType extends AbstractType
     {
         $builder
             ->add('name', null, array(
-                'label' => 'Nombre'
+                'label' => 'Nombre',
             ))
             ->add('age', null, array(
-                'label' => 'Edad'
+                'label' => 'Edad',
+                'help' => 'Días que tiene el animal',
             ))
             ->add('weight', null, array(
-                'label' => 'Peso'
+                'label' => 'Peso',
+                'help' => 'Gramos de peso',
             ))
         ;
     }
