@@ -141,6 +141,13 @@ class FormController extends Controller
      */
     public function oneToManyEditAction(User $user, Request $request)
     {
+        $originalAddresses = array();
+
+        // Create an array of the current Address objects in the database
+        foreach ($user->getAddresses() as $address) {
+            $originalAddresses[] = $address;
+        }
+
         $form = $this->createForm(new UserAddressesType(), $user);
 
         if ($request->isMethod("POST")) {
@@ -148,6 +155,24 @@ class FormController extends Controller
 
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+
+                // filter $originalAddresses to contain adressess no longer present
+                foreach ($user->getAddresses() as $address) {
+                    foreach ($originalAddresses as $key => $toDel) {
+                        if ($toDel->getId() === $address->getId()) {
+                            unset($originalAddresses[$key]);
+                        }
+                    }
+                }
+
+                // remove the relationship between the address and the Task
+                foreach ($originalAddresses as $address) {
+                    // remove the Address from the User
+                    $user->getAddresses()->removeElement($address);
+
+                    // if you wanted to delete the Address entirely, you can also do that
+                    $em->remove($address);
+                }
 
                 $em->persist($user);
                 // $em->flush();
@@ -214,20 +239,85 @@ class FormController extends Controller
     }
 
     /**
-     * @Route("/forms/user/edit", name="examples_forms_users_edit")
-     * @Template("MainBundle:Example\Form:edit_users.html.twig")
+     * @Route("/forms/user/{username}/edit", name="examples_forms_user_edit")
+     * @ParamConverter("user", class="MainBundle:User")
+     * @Template("MainBundle:Example\Form:edit_user.html.twig")
      */
-    public function usersEditAction(Request $request)
+    public function userEditAction(User $user, Request $request)
     {
-        $users = $this->getDoctrine()->getManager()->getRepository("MainBundle:User")->findAll();
+        $originalAddresses = array();
 
-        $form = $this->createForm(new EditUsersType(), array('users' => $users));
+        // Create an array of the current Address objects in the database
+        foreach ($user->getAddresses() as $address) {
+            $originalAddresses[] = $address;
+        }
+
+        $form = $this->createForm(new UserType(), $user);
 
         if ($request->isMethod("POST")) {
             $form->bind($request);
 
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+
+                // filter $originalAddresses to contain adressess no longer present
+                foreach ($user->getAddresses() as $address) {
+                    foreach ($originalAddresses as $key => $toDel) {
+                        if ($toDel->getId() === $address->getId()) {
+                            unset($originalAddresses[$key]);
+                        }
+                    }
+                }
+
+                // remove the relationship between the address and the Task
+                foreach ($originalAddresses as $address) {
+                    // remove the Address from the User
+                    $user->getAddresses()->removeElement($address);
+
+                    // if you wanted to delete the Address entirely, you can also do that
+                    $em->remove($address);
+                }
+
+                $em->persist($user);
+                // $em->flush();
+
+                $flashBag = $this->get('session')->getFlashBag();
+                $flashBag->add('smtc_success', 'Se ha editado un usuario:');
+                $flashBag->add('smtc_success', sprintf('Username: %s', $user->getUsername()));
+                $flashBag->add('smtc_success', sprintf('Nombre: %s', $user->getProfile()->getName()));
+                if (0 !== count($user->getAddresses())) {
+                    $flashBag->add('smtc_success', 'Direcciones:');
+                    foreach ($user->getAddresses() as $address) {
+                        $flashBag->add('smtc_success', sprintf('&nbsp;&nbsp;%s (%s)', $address->getStreet(), $address->getCity()->getName()));
+                    }
+                }
+
+                return $this->redirect($this->generateUrl('examples_forms'));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'user' => $user,
+        );
+    }
+
+    /**
+     * @Route("/forms/user/edit", name="examples_forms_users_edit")
+     * @Template("MainBundle:Example\Form:edit_users.html.twig")
+     */
+    public function usersEditAction(Request $request)
+    {
+        $users = $this->getDoctrine()->getManager()->getRepository("MainBundle:User")->findAll();
+        $usersContainer = new \SMTC\MainBundle\Form\Model\Users($users);
+        $form = $this->createForm(new EditUsersType(), $usersContainer);
+
+        if ($request->isMethod("POST")) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+
                 foreach ($users as $user) {
                     $em->persist($user);
                 }
@@ -253,45 +343,6 @@ class FormController extends Controller
 
         return array(
             'form' => $form->createView(),
-        );
-    }
-
-    /**
-     * @Route("/forms/user/{username}/edit", name="examples_forms_user_edit")
-     * @ParamConverter("user", class="MainBundle:User")
-     * @Template("MainBundle:Example\Form:edit_user.html.twig")
-     */
-    public function userEditAction(User $user, Request $request)
-    {
-        $form = $this->createForm(new UserType(), $user);
-
-        if ($request->isMethod("POST")) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-
-                $em->persist($user);
-                // $em->flush();
-
-                $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('smtc_success', 'Se ha editado un usuario:');
-                $flashBag->add('smtc_success', sprintf('Username: %s', $user->getUsername()));
-                $flashBag->add('smtc_success', sprintf('Nombre: %s', $user->getProfile()->getName()));
-                if (0 !== count($user->getAddresses())) {
-                    $flashBag->add('smtc_success', 'Direcciones:');
-                    foreach ($user->getAddresses() as $address) {
-                        $flashBag->add('smtc_success', sprintf('&nbsp;&nbsp;%s (%s)', $address->getStreet(), $address->getCity()->getName()));
-                    }
-                }
-
-                return $this->redirect($this->generateUrl('examples_forms'));
-            }
-        }
-
-        return array(
-            'form' => $form->createView(),
-            'user' => $user,
         );
     }
 }

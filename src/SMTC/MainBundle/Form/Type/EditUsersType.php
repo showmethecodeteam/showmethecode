@@ -4,6 +4,7 @@ namespace SMTC\MainBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EditUsersType extends AbstractType
 {
@@ -23,5 +24,12 @@ class EditUsersType extends AbstractType
     public function getName()
     {
         return 'users';
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'SMTC\MainBundle\Form\Model\Users',
+        ));
     }
 }
