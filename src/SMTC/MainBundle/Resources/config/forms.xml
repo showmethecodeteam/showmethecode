@@ -9,7 +9,7 @@
         </service>
 
         <service id="smtc.main.form.help_type_extension" class="SMTC\MainBundle\Form\Extension\HelpTypeExtension">
-            <tag name="form.type_extension" alias="field" />
+            <tag name="form.type_extension" alias="form" />
         </service>
     </services>
 </container>

@@ -30,6 +30,6 @@ class HelpTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-        return 'field';
+        return 'form';
     }
 }
