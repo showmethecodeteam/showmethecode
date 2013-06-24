@@ -5,6 +5,7 @@ namespace SMTC\MainBundle\Controller\Example;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 use SMTC\MainBundle\Form\Type\PasswordType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -36,14 +37,12 @@ class UserController extends Controller
      * @Route("/userpassword", name="examples_userpassword")
      * @Template()
      */
-    public function userPasswordAction()
+    public function userPasswordAction(Request $request)
     {
         $this->loginByUsername('smtc');
 
         $user = $this->get('security.context')->getToken()->getUser();
         $form = $this->createForm(new PasswordType(), $user);
-
-        $request = $this->getRequest();
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
