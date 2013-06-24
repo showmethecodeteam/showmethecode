@@ -5,6 +5,7 @@ namespace SMTC\MainBundle\Controller\Example;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SMTC\MainBundle\Model\Location;
 use SMTC\MainBundle\Form\Type\LocationType;
@@ -31,12 +32,10 @@ class LocationController extends Controller
      * @Route("/selects-dependientes/location/new", name="examples_dependent_selects_location_new")
      * @Template("MainBundle:Example\Location:new_location.html.twig")
      */
-    public function newLocationAction()
+    public function newLocationAction(Request $request)
     {
         $location = new Location();
         $form = $this->createForm(new LocationType(), $location);
-
-        $request = $this->getRequest();
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
@@ -64,14 +63,12 @@ class LocationController extends Controller
      * @ParamConverter("city", class="MainBundle:City")
      * @Template("MainBundle:Example\Location:edit_location.html.twig")
      */
-    public function editLocationAction(City $city)
+    public function editLocationAction(City $city, Request $request)
     {
         $location = new Location();
         $location->address = sprintf("Calle X número %d", rand(1,100));
         $location->city = $city;
         $form = $this->createForm(new LocationType(), $location);
-
-        $request = $this->getRequest();
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
