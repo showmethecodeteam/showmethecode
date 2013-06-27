@@ -3,6 +3,7 @@
 namespace SMTC\MainBundle\Controller\Example;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -31,12 +32,10 @@ class LocationController extends Controller
      * @Route("/selects-dependientes/location/new", name="examples_dependent_selects_location_new")
      * @Template("MainBundle:Example\Location:new_location.html.twig")
      */
-    public function newLocationAction()
+    public function newLocationAction(Request $request)
     {
         $location = new Location();
         $form = $this->createForm(new LocationType(), $location);
-
-        $request = $this->getRequest();
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
