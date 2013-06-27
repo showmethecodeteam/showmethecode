@@ -3,6 +3,7 @@
 namespace SMTC\MainBundle\Controller\Example;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SMTC\MainBundle\Model\Comment;
@@ -25,12 +26,10 @@ class EventController extends Controller
      * @Route("/evento/comment", name="examples_events_comment")
      * @Template()
      */
-    public function commentEventAction()
+    public function commentEventAction(Request $request)
     {
         $comment = new Comment();
         $form = $this->createForm(new CommentType(), $comment);
-
-        $request = $this->getRequest();
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
