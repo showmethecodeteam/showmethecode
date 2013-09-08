@@ -28,9 +28,10 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
 
     private function addCountryForm($form, $country)
     {
-        $form->add($this->factory->createNamed('country', 'entity', $country, array(
+        $form->add('country', 'entity', array(
             'class'         => 'MainBundle:Country',
             'mapped'        => false,
+            'data'          => $country,
             'empty_value'   => 'País',
             'attr'          => array(
                 'class' => 'country_selector',
@@ -40,7 +41,7 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
 
                 return $qb;
             }
-        )));
+        ));
     }
 
     public function preSetData(FormEvent $event)

@@ -29,9 +29,10 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
 
     private function addCityForm($form, $city, $province)
     {
-        $form->add($this->factory->createNamed('city','entity', $city, array(
+        $form->add('city','entity', array(
             'class'         => 'MainBundle:City',
             'empty_value'   => 'Ciudad',
+            'data'          => $city,
             'attr'          => array(
                 'class' => 'city_selector',
             ),
@@ -51,7 +52,7 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
 
                 return $qb;
             }
-        )));
+        ));
     }
 
     public function preSetData(FormEvent $event)

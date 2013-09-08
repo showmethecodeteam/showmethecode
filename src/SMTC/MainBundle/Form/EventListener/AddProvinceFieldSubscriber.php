@@ -29,10 +29,11 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
 
     private function addProvinceForm($form, $province, $country)
     {
-        $form->add($this->factory->createNamed('province','entity', $province, array(
+        $form->add('province','entity', array(
             'class'         => 'MainBundle:Province',
             'empty_value'   => 'Provincia',
             'mapped'        => false,
+            'data'          => $province,
             'attr'          => array(
                 'class' => 'province_selector',
             ),
@@ -52,7 +53,7 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
 
                 return $qb;
             }
-        )));
+        ));
     }
 
     public function preSetData(FormEvent $event)

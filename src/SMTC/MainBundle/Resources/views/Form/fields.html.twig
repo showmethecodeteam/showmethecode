@@ -3,7 +3,7 @@
 {% block form_widget_simple %}
 {% spaceless %}
     {{ parent() }}
-    {% if help %}
+    {% if help is defined and help is not empty %}
         <p class="help-block">{{ help }}</p>
     {% endif %}
 {% endspaceless %}
