@@ -1,0 +1,24 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <ul>
+                <li><a href="{{ path('examples_autocomplete_forms_select_city') }}">Seleccionar ciudad</a></li>
+                <li>
+                    Editar una ciudad:
+                    <ul>
+                        {% for city in cities %}
+                            <li><a href="{{ path('examples_autocomplete_forms_select_city_edit', {'slug': city.slug}) }}">{{ city.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}
+{% set article_link = 'http://showmethecode.es/php/symfony/autocompletado-de-un-campo-en-symfony2/' %}

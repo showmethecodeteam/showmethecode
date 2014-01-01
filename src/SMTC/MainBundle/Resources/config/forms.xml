@@ -11,5 +11,10 @@
         <service id="smtc.main.form.help_type_extension" class="SMTC\MainBundle\Form\Extension\HelpTypeExtension">
             <tag name="form.type_extension" alias="form" />
         </service>
+
+        <service id="smtc.main.form.autocomplete_entity_type" class="SMTC\MainBundle\Form\Type\AutocompleteEntityType">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <tag name="form.type" alias="autocomplete_entity" />
+        </service>
     </services>
 </container>

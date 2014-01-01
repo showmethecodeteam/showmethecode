@@ -13,6 +13,17 @@ use SMTC\MainBundle\Entity\Country;
  */
 class CityRepository extends EntityRepository
 {
+    public function findByTerm($term)
+    {
+        $query = $this->getEntityManager()->createQuery("
+            SELECT city.id as id, city.name as label
+            FROM MainBundle:City city
+            WHERE city.name LIKE :term
+        ")->setParameter('term', '%' . $term . '%');
+
+        return $query->getArrayResult();
+    }
+
     public function findByProvinceId($province_id)
     {
         $query = $this->getEntityManager()->createQuery("

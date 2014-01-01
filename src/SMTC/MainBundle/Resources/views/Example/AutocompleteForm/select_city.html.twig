@@ -1,0 +1,54 @@
+{% extends 'MainBundle::layout.html.twig' %}
+
+{% set section = 'examples' %}
+
+{% form_theme form _self %}
+
+{% block autocomplete_entity_widget %}
+    {{ form_row(form) }}
+    <input type="text" data-id="{{ form.vars.id }}" data-url="{{ path(form.vars.update_route) }}" class="autocomplete" value="{{ form.vars.data.name|default('') }}">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+    <script>
+        $(function(){
+            $('.autocomplete').each(function(i, el) {
+                var $this = $(el);
+                $this.autocomplete({
+                    source: $this.data('url'),
+                    minLength: 1,
+                    select: function( event, ui ) {
+                        $('#' + $this.data('id')).val(ui.item.id);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">
+                        Enviar
+                    </button>
+                </div>
+            {{ form_end(form) }}
+            Ciudades: {{ cities|join(', ') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% set code = code(_self) %}
+{% set article_link = 'http://showmethecode.es/php/symfony/autocompletado-de-un-campo-en-symfony2/' %}
