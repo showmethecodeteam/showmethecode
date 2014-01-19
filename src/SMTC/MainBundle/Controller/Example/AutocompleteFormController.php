@@ -103,7 +103,6 @@ class AutocompleteFormController extends Controller
 
         $cities = $em->getRepository('MainBundle:City')->findAll();
 
-
         return array(
             'form'   => $form->createView(),
             'cities' => $cities,

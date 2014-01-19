@@ -41,7 +41,7 @@ class EntityToIdTransformer implements DataTransformerInterface
     /**
      * Transforms an id to an object.
      *
-     * @param  string $id
+     * @param  string                        $id
      * @return Object|null
      * @throws TransformationFailedException if object is not found.
      */

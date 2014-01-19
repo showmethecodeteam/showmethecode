@@ -5,11 +5,8 @@ namespace SMTC\MainBundle\Controller\Example;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use SMTC\MainBundle\Form\Type\TaskType;
-use SMTC\MainBundle\Entity\City;
 
 class FormEmptyDataController extends Controller
 {
