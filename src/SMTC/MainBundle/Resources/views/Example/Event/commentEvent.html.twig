@@ -1,16 +1,27 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example_detail('Eventos', 'examples_events', 'Añadir IP al comentario') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <form action="{{ path('examples_events_comment') }}" method="POST" novalidate>
                 {{ form_row(form.username) }}
                 {{ form_row(form.email) }}
                 {{ form_row(form.message) }}
                 {{ form_rest(form) }}
-                <p><small>Palabras reservadas: {{ global.banned_words|join(", ") }}</small></p>
+                <p>
+                    Si el mensaje contiene alguna de las siguientes palabras reservadas no se enviará:
+                    {% for banned_word in global.banned_words %}
+                        <span class="label label-info">{{ banned_word }}</span>
+                    {% endfor %}
+                </p>
                 <button type="submit" class="btn btn-success">
                     Enviar
                 </button>

@@ -4,51 +4,54 @@
 
 {% block body %}
     {% block navbar %}
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="{{ path('homepage') }}">Show me the code!</a>
-                    <div class="nav-collapse collapse">
-                        {% include 'MainBundle::menu.html.twig' with {'section': section} only %}
-                    </div><!--/.nav-collapse -->
-                    {% block user_info %}
-                        <div class="pull-right">
-                            <ul class="nav pull-right">
-                                <li class="dropdown">
-                                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            {{ app.user.username }}
-                                            <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{{ logout_path('secured_area') }}">Logout</a></li>
-                                        </ul>
-                                    {% else %}
-                                        <a href="#">
-                                            Anonymous
-                                        </a>
-                                    {% endif %}
-                                </li>
-                            </ul>
-                        </div>
-                    {% endblock %}
-                </div>
+    <header class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('homepage') }}">Show me the code!</a>
             </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                {% include 'MainBundle::menu.html.twig' with {'section': section} only %}
+
+                {% block user_info %}
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    {{ app.user.username }}
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ logout_path('secured_area') }}">Logout</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li><a href="#">Anonymous</a></li>
+                        {% endif %}
+                    </ul>
+                {% endblock %}
+            </div><!-- /.navbar-collapse -->
         </div>
-        {% endblock %}
+    </header>
+    {% endblock %}
 
         <div class="container">
+            {% block breadcrumb %}{% endblock %}
+
             <div class="row">
-                <div class="span12">
+                <div class="col-md-12">
                     {% for notice_level in ['success','error','info', 'warning'] %}
                         {% set session_var = 'smtc_' ~ notice_level %}
                         {% if app.session.flashbag.has(session_var) %}
-                            <div class="alert {{ 'alert-' ~ notice_level }}">
+                            {% set alert_class = notice_level ? 'error' == notice_level ? 'danger' : notice_level %}
+                            <div class="alert alert-dismissable {{ 'alert-' ~ alert_class }}">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
                                 {% for flash in app.session.flashbag.get(session_var) %}
                                     <p>{{ flash|raw }}</p>
                                 {% endfor %}
@@ -62,12 +65,12 @@
             {% if code is defined %}
                 <hr>
                 <div class="row">
-                    <div class="span12">
-                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#shomethecode">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#shomethecode">
                             Show me the code! <b class="caret"></b>
                         </button>
                         {% if article_link is defined %}
-                            <a href="{{ article_link }}" class="btn btn-primary">Ir al artículo</a>
+                            <a href="{{ article_link }}" target="_blank" class="btn btn-primary">Ir al artículo <i class="glyphicon glyphicon-new-window"></i></a>
                         {% endif %}
                         <div id="shomethecode" class="collapse">{{ code|raw }}</div>
                     </div>

@@ -1,6 +1,12 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example_detail('Selects Dependientes', 'examples_dependent_selects', 'Crear Localización') }}
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -42,8 +48,8 @@
 
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <form action="{{ path('examples_dependent_selects_location_new') }}" method="POST" novalidate>
+        <div class="col-md-12">
+            <form action="{{ path('examples_dependent_selects_location_new') }}" method="POST" novalidate role="form">
                 {{ form_row(form.address) }}
                 {{ form_row(form.country) }}
                 {{ form_row(form.province) }}

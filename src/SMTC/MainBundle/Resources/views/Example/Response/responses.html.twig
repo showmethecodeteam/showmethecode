@@ -1,19 +1,26 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example('Respuestas') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <ul>
-                <li><a href="{{ path('responses_response') }}">Response</a>
+        <div class="col-md-12">
+            <p>Haz click en cada una de las respuestas para ver el resultado.</p>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{{ path('responses_response') }}">Response</a>
                     <pre class="prettyprint">
 public function responseAction()
 {
     return new Response('Respuesta simple!');
 }</pre>
                 </li>
-                <li>
+                <li class="list-group-item">
                     <a href="{{ path('responses_redirect') }}">ResponseRedirect</a>
                     <pre class="prettyprint">
 public function redirectAction()
@@ -21,7 +28,7 @@ public function redirectAction()
     return new RedirectResponse($this->generateUrl('examples_responses'));
 }</pre>
                 </li>
-                <li>
+                <li class="list-group-item">
                     <a href="{{ path('responses_json') }}">JsonResponse</a>
                     <pre class="prettyprint">
 public function jsonResponseAction()
@@ -32,7 +39,7 @@ public function jsonResponseAction()
     ));
 }</pre>
                 </li>
-                <li>
+                <li class="list-group-item">
                     <a href="{{ path('responses_jsonp') }}">JsonResponse (JSONP)</a>
                     <pre class="prettyprint">
 public function jsonpResponseAction()
@@ -46,7 +53,7 @@ public function jsonpResponseAction()
     return $response;
 }</pre>
                 </li>
-                <li>
+                <li class="list-group-item">
                     <a href="{{ path('responses_streamed') }}">StreamedResponse</a>
                     <pre class="prettyprint">
 public function streamedResponseAction()

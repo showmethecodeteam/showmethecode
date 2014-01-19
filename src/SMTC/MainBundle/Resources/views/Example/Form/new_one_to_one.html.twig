@@ -1,10 +1,16 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example_detail('Embeber formularios con relaciones', 'examples_forms', 'Crear usuario con perfil') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <form action="{{ path('examples_forms_one_to_one_create') }}" method="POST" novalidate>
                 {{ form_widget(form) }}
                 <button type="submit" class="btn btn-success">

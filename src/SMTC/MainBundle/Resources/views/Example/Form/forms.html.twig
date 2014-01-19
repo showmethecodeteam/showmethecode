@@ -1,12 +1,18 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example('Embeber formularios con relaciones') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <ul>
-                <li>OneToOne (Usuario con perfil)
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item">OneToOne (Usuario con perfil)
                     <ul>
                         <li><a href="{{ path('examples_forms_one_to_one_create') }}">Crear Usuario</a></li>
                         <li>Editar Usuario
@@ -18,7 +24,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>OneToMany (Usuario con direcciones)
+                <li class="list-group-item">OneToMany (Usuario con direcciones)
                     <ul>
                         <li><a href="{{ path('examples_forms_one_to_many_create') }}">Crear Usuario</a></li>
                         <li>Editar Usuario
@@ -30,7 +36,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>OneToOne y OnetToMany (Usuario con perfil y direcciones)
+                <li class="list-group-item">OneToOne y OnetToMany (Usuario con perfil y direcciones)
                     <ul>
                         <li><a href="{{ path('examples_forms_user_create') }}">Crear Usuario</a></li>
                         <li>Editar Usuario
@@ -42,7 +48,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="{{ path('examples_forms_users_edit') }}">Editar Usuarios</a></li>
+                <li class="list-group-item"><a href="{{ path('examples_forms_users_edit') }}">Editar Usuarios</a></li>
             </ul>
         </div>
     </div>

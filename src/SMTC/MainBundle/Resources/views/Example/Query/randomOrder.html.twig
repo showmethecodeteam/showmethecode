@@ -1,14 +1,20 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example('Doctrine2: Ordenar aleatoriamente') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <h2>Ver ciudades aleatoriamente en</h2>
-            <ul>
+            <ul class="list-group">
                 {% for country in countries %}
-                    <li><a href="{{ path('examples_query_random_order_country', {'slug': country.slug}) }}">{{ country.name }}</a></li>
+                    <li class="list-group-item"><a href="{{ path('examples_query_random_order_country', {'slug': country.slug}) }}">{{ country.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>

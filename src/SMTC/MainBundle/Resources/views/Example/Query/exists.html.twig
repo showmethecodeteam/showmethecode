@@ -1,10 +1,16 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example_detail('Doctrine2: Subconsultas', 'examples_query_subqueries', subtitle) }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <h2>{{ subtitle }}</h2>
             <table class="table">
                 <tr>

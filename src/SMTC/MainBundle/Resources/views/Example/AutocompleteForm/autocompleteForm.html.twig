@@ -1,13 +1,19 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example('Autocompletado de un campo en Symfony2') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <ul>
-                <li><a href="{{ path('examples_autocomplete_forms_select_city') }}">Seleccionar ciudad</a></li>
-                <li>
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{{ path('examples_autocomplete_forms_select_city') }}">Seleccionar ciudad</a></li>
+                <li class="list-group-item">
                     Editar una ciudad:
                     <ul>
                         {% for city in cities %}

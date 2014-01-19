@@ -1,12 +1,19 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{% set breadcrumb_title = city is defined ? 'Editar ' ~ city.name : 'Seleccionar ciudad' %}
+{{ breadcrumb.show_example_detail('Autocompletado de un campo en Symfony2', 'examples_autocomplete_forms', breadcrumb_title) }}
+{% endblock %}
 
 {% form_theme form _self %}
 
 {% block autocomplete_entity_widget %}
-    {{ form_row(form) }}
-    <input type="text" data-id="{{ form.vars.id }}" data-url="{{ path(form.vars.update_route) }}" class="autocomplete" value="{{ form.vars.data.name|default('') }}">
+    {{ form_widget(form) }}
+    <input type="text" data-id="{{ form.vars.id }}" data-url="{{ path(form.vars.update_route) }}" class="form-control autocomplete" value="{{ form.vars.data.name|default('') }}">
 {% endblock %}
 
 {% block stylesheets %}
@@ -36,16 +43,20 @@
 
 {% block content %}
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             {{ form_start(form) }}
-                {{ form_widget(form) }}
+                <div class="form-group">
+                    {{ form_label(form.city) }}
+                    {{ form_errors(form.city) }}
+                    {{ form_widget(form.city) }}
+                </div>
+                <p><strong>Ciudades</strong>: {{ cities|join(', ') }}</p>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">
                         Enviar
                     </button>
                 </div>
             {{ form_end(form) }}
-            Ciudades: {{ cities|join(', ') }}
         </div>
     </div>
 {% endblock %}

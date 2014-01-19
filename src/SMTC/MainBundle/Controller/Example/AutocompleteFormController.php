@@ -105,6 +105,7 @@ class AutocompleteFormController extends Controller
 
         return array(
             'form'   => $form->createView(),
+            'city'   => $city,
             'cities' => $cities,
         );
     }

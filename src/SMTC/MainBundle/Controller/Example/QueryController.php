@@ -70,7 +70,7 @@ class QueryController extends Controller
         $users = $em->getRepository("MainBundle:User")->findUsersWithAddressesIn($country);
 
         return array(
-            'users'  => $users,
+            'users'    => $users,
             'subtitle' => sprintf("Usuarios con direcciones en %s", $country->getName()),
         );
     }
@@ -87,7 +87,7 @@ class QueryController extends Controller
         $users = $em->getRepository("MainBundle:User")->findUsersWithAllAddressesIn($country);
 
         return array(
-            'users'  => $users,
+            'users'    => $users,
             'subtitle' => sprintf("Usuarios con todas las direcciones en %s", $country->getName()),
         );
     }

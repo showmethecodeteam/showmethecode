@@ -2,22 +2,99 @@
 
 {% set section = 'examples' %}
 
+{% set articles = [
+        {
+            'route': 'examples_dependent_selects',
+            'title': 'Selects dependientes',
+            'blog_url': 'http://showmethecode.es/php/symfony/symfony2-selects-dependientes-mediante-eventos/',
+            'blog_title' : 'Symfony2: Selects dependientes mediante eventos'
+        },
+        {
+            'route': 'examples_userpassword',
+            'title': 'UserPassword Constraint',
+            'blog_url': 'http://showmethecode.es/php/symfony/userpassword-constraint/',
+            'blog_title' : 'Symfony2: UserPassword Constraint'
+        },
+        {
+            'route': 'examples_impersonating',
+            'title': 'Impersonating',
+            'blog_url': 'http://showmethecode.es/php/symfony/impersonating-hacerse-pasar-por-otro-usuario-en-symfony2/',
+            'blog_title' : 'Symfony2: Impersonating – Hacerse pasar por otro usuario'
+        },
+        {
+            'route': 'examples_responses',
+            'title': 'Tipos de respuesta',
+            'blog_url': 'http://showmethecode.es/php/symfony/symfony2-response-responseredirect-jsonresponse-y-streamedresponse/',
+            'blog_title' : 'Symfony2: Response, ResponseRedirect, JsonResponse y StreamedResponse'
+        },
+        {
+            'route': 'examples_events',
+            'title': 'Eventos',
+            'blog_url': 'http://showmethecode.es/php/symfony/symfony2-custom-events/',
+            'blog_title' : 'Symfony2: Custom Events'
+        },
+        {
+            'route': 'examples_forms',
+            'title': 'Embeber formularios con relaciones',
+            'blog_url': 'http://showmethecode.es/php/symfony/symfony2-embeber-formularios-con-relaciones/',
+            'blog_title' : 'Symfony2: Embeber formularios con Relaciones'
+        },
+        {
+            'route': 'examples_virtual_forms',
+            'title': 'Opción virtual en formularios',
+            'blog_url': 'http://showmethecode.es/php/symfony/symfony2-opcion-virtual-en-los-formularios/',
+            'blog_title' : 'Symfony2: Opción virtual en los formularios'
+        },
+        {
+            'route': 'examples_query_random_order',
+            'title': 'Doctrine2: Ordenar aleatoriamente',
+            'blog_url': 'http://showmethecode.es/php/doctrine2/doctrine2-ordenar-aleatoriamente/',
+            'blog_title' : 'Doctrine2: Ordenar aleatoriamente'
+        },
+        {
+            'route': 'examples_query_subqueries',
+            'title': 'Doctrine2: Subconsultas',
+            'blog_url': 'http://showmethecode.es/php/doctrine2/doctrine2-subconsultas/',
+            'blog_title' : 'Doctrine2: Subconsultas'
+        },
+        {
+            'route': 'examples_virtual_forms_fish_create',
+            'title': 'Form Extensions',
+            'blog_url': 'http://showmethecode.es/php/symfony/symfony2-form-extensions/',
+            'blog_title' : 'Symfony2: Form Extensions'
+        },
+        {
+            'route': 'examples_autocomplete_forms',
+            'title': 'Autocompletado de un campo en Symfony2',
+            'blog_url': 'http://showmethecode.es/php/symfony/autocompletado-de-un-campo-en-symfony2/',
+            'blog_title' : 'Autocompletado de un campo en Symfony2'
+        },
+        {
+            'route': 'examples_form_empty_data',
+            'title': 'Configurar empty_data en formularios',
+            'blog_url': 'http://showmethecode.es/php/symfony/symfony2-configurar-empty_data-en-formularios/',
+            'blog_title' : 'Symfony2: Configurar empty_data en formularios'
+        }
+    ]
+%}
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+    <li><a href="{{ path('homepage') }}">SMTC</a></li>
+    <li class="active">Ejemplos</li>
+</ul>
+{% endblock %}
+
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <ul>
-                <li><a href="{{ path('examples_dependent_selects') }}">Selects dependientes</a> - <a href="http://showmethecode.es/php/symfony/symfony2-selects-dependientes-mediante-eventos/" title="Symfony2: Selects dependientes mediante eventos">Artículo</a></li>
-                <li><a href="{{ path('examples_userpassword') }}">UserPassword Constraint</a> - <a href="http://showmethecode.es/php/symfony/userpassword-constraint/" title="Symfony2: UserPassword Constraint">Artículo</a></li>
-                <li><a href="{{ path('examples_impersonating') }}">Impersonating</a> - <a href="http://showmethecode.es/php/symfony/impersonating-hacerse-pasar-por-otro-usuario-en-symfony2/" title="Symfony2: Impersonating – Hacerse pasar por otro usuario">Artículo</a></li>
-                <li><a href="{{ path('examples_responses') }}">Tipos de respuesta</a> - <a href="http://showmethecode.es/php/symfony/symfony2-response-responseredirect-jsonresponse-y-streamedresponse/" title="Symfony2: Response, ResponseRedirect, JsonResponse y StreamedResponse">Artículo</a></li>
-                <li><a href="{{ path('examples_events') }}">Eventos</a> - <a href="http://showmethecode.es/php/symfony/symfony2-custom-events/" title="Symfony2: Custom Events">Artículo</a></li>
-                <li><a href="{{ path('examples_forms') }}">Embeber formularios con relaciones</a> - <a href="http://showmethecode.es/php/symfony/symfony2-embeber-formularios-con-relaciones/" title="Symfony2: Embeber formularios con Relaciones">Artículo</a></li>
-                <li><a href="{{ path('examples_virtual_forms') }}">Opción virtual en formularios</a> - <a href="http://showmethecode.es/php/symfony/symfony2-opcion-virtual-en-los-formularios/" title="Symfony2: Opción virtual en los formularios">Artículo</a></li>
-                <li><a href="{{ path('examples_query_random_order') }}">Doctrine2: Ordenar aleatoriamente</a> - <a href="http://showmethecode.es/php/doctrine2/doctrine2-ordenar-aleatoriamente/" title="Doctrine2: Ordenar aleatoriamente">Artículo</a></li>
-                <li><a href="{{ path('examples_query_subqueries') }}">Doctrine2: Subconsultas</a> - <a href="http://showmethecode.es/php/doctrine2/doctrine2-subconsultas/" title="Doctrine2: Subconsultas">Artículo</a></li>
-                <li><a href="{{ path('examples_virtual_forms_fish_create') }}">Form Extensions</a> - <a href="http://showmethecode.es/php/symfony/symfony2-form-extensions/" title="Symfony2: Form Extensions">Artículo</a></li>
-                <li><a href="{{ path('examples_autocomplete_forms') }}">Autocompletado de un campo en Symfony2</a> - <a href="http://showmethecode.es/php/symfony/autocompletado-de-un-campo-en-symfony2/" title="Autocompletado de un campo en Symfony2">Artículo</a></li>
-                <li><a href="{{ path('examples_form_empty_data') }}">Configurar empty_data en formularios</a> - <a href="http://showmethecode.es/php/symfony/symfony2-configurar-empty_data-en-formularios/" title="Symfony2: Configurar empty_data en formularios">Artículo</a></li>
+        <div class="col-md-12">
+            <ul class="list-group">
+                {% for article in articles %}
+                    <li class="list-group-item">
+                        <a href="{{ path(article.route) }}">{{ article.title }}</a>
+                        <a class="btn btn-xs btn-info pull-right" href="{{ article.blog_url }}" target="_blank" title="{{ article.blog_title }}">Ver artículo <i class="glyphicon glyphicon-new-window"></i></a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </div>

@@ -1,10 +1,16 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example_detail('Doctrine2: Ordenar aleatoriamente', 'examples_query_random_order', 'Ordenar ciudades en ' ~ country.name) }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <h2>Ciudades aleatorias en {{ country.name }}</h2>
             <ul>
                 {% for city in cities %}

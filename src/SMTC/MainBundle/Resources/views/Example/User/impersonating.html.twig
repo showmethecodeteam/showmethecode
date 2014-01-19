@@ -1,17 +1,23 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example('Impersonating') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <p>Soy {{ app.user.username }}</p>
-            <ul>
+        <div class="col-md-12">
+            <p>El usuario actual es <span class="label label-info">{{ app.user.username }}</span></p>
+            <ul class="list-group">
             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                <li><a href="{{ path('examples_impersonating', {'_change_to': '_exit'}) }}">Salir impersonating</a></li>
+                <li class="list-group-item"><a href="{{ path('examples_impersonating', {'_change_to': '_exit'}) }}">Salir impersonating</a></li>
             {% else %}
-                <li><a href="{{ path('examples_impersonating', {'_change_to': 'user'}) }}">Cambiar a User</a></li>
-                <li><a href="{{ path('examples_impersonating', {'_change_to': 'admin'}) }}">Cambiar a Admin</a></li>
+                <li class="list-group-item"><a href="{{ path('examples_impersonating', {'_change_to': 'user'}) }}">Cambiar a User</a></li>
+                <li class="list-group-item"><a href="{{ path('examples_impersonating', {'_change_to': 'admin'}) }}">Cambiar a Admin</a></li>
             {% endif %}
             </ul>
         </div>

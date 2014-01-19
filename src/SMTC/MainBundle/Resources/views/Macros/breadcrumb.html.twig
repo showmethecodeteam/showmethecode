@@ -1,0 +1,16 @@
+{% macro show_example(title) %}
+<ul class="breadcrumb">
+    <li><a href="{{ path('homepage') }}">SMTC</a></li>
+    <li><a href="{{ path('examples') }}">Ejemplos</a></li>
+    <li class="active">{{ title }}</li>
+</ul>
+{% endmacro %}
+
+{% macro show_example_detail(example_title, example_route, title) %}
+<ul class="breadcrumb">
+    <li><a href="{{ path('homepage') }}">SMTC</a></li>
+    <li><a href="{{ path('examples') }}">Ejemplos</a></li>
+    <li><a href="{{ path(example_route) }}">{{ example_title }}</a></li>
+    <li class="active">{{ title }}</li>
+</ul>
+{% endmacro %}

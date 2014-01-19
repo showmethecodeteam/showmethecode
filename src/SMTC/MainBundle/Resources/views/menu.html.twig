@@ -1,4 +1,6 @@
-<ul class="nav">
+{% set section = section|default('homepage') %}
+
+<ul class="nav navbar-nav">
     <li class="{% if section == 'homepage' %}active{% endif %}"><a href="{{ path('homepage') }}">Home</a></li>
     <li class="{% if section == 'examples' %}active{% endif %}"><a href="{{ path('examples') }}">Ejemplos</a></li>
 </ul>

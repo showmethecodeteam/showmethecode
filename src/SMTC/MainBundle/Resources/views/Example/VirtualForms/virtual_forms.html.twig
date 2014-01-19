@@ -1,13 +1,19 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example('Opción virtual en los formularios') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <ul>
-               <li><a href="{{ path('examples_virtual_forms_dog_create') }}">Crear Perro</a></li>
-               <li><a href="{{ path('examples_virtual_forms_bird_create') }}">Crear Pájaro</a></li>
+        <div class="col-md-12">
+            <ul class="list-group">
+               <li class="list-group-item"><a href="{{ path('examples_virtual_forms_dog_create') }}">Crear Perro</a></li>
+               <li class="list-group-item"><a href="{{ path('examples_virtual_forms_bird_create') }}">Crear Pájaro</a></li>
             </ul>
         </div>
     </div>

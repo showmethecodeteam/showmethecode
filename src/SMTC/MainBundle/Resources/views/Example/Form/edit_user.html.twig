@@ -1,12 +1,18 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example_detail('Embeber formularios con relaciones', 'examples_forms', 'Editando ' ~ user.profile.name ~ ' con perfil y direcciones') }}
+{% endblock %}
 
 {% form_theme form _self %}
 
 {% block _user_addresses_entry_row %}
 {% spaceless %}
-    <div class="span3 well address">
+    <div class="col-md-3 well address">
         <button type="button" class="close">&times;</button>
         {{ form_label(form) }}
         {{ form_errors(form) }}
@@ -45,7 +51,7 @@
         var collectionHolder = $('div.addresses');
 
         // setup an "add a address" link
-        var $newLinkLi = $('<a href="#" class="btn btn-mini btn-info add_address_link"><i class="icon-plus icon-white"></i> Añadir una dirección</a>');
+        var $newLinkLi = $('<a href="#" class="btn btn-xs btn-info add_address_link"><i class="glyphicon glyphicon-plus glyphicon-white"></i> Añadir una dirección</a>');
 
         $(function(){
 
@@ -111,7 +117,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <form action="{{ path('examples_forms_user_edit', {'username': user.username}) }}" method="POST" novalidate>
                 {{ form_widget(form) }}
                 <div class="form-actions">

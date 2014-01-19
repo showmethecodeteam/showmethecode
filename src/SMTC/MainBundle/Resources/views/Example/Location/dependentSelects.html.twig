@@ -1,13 +1,19 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example('Selects Dependientes') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <ul>
-                <li><a href="{{ path('examples_dependent_selects_location_new') }}">Crear Localización</a></li>
-                <li>Editar Localización
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{{ path('examples_dependent_selects_location_new') }}">Crear Localización</a></li>
+                <li class="list-group-item">Editar Localización
                     <ul>
                         {% for city in cities %}
                             <li><a href="{{ path('examples_dependent_selects_location_edit', {'slug': city.slug}) }}">{{ city.name }}</a></li>

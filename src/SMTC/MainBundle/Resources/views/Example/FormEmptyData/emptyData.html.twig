@@ -1,12 +1,18 @@
 {% extends 'MainBundle::layout.html.twig' %}
 
+{% import 'MainBundle:Macros:breadcrumb.html.twig' as breadcrumb %}
+
 {% set section = 'examples' %}
+
+{% block breadcrumb %}
+{{ breadcrumb.show_example('Configurar empty_data en formularios') }}
+{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <ul>
-                <li><a href="{{ path('examples_form_empty_data_new_task') }}">Crear Tarea</a></li>
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{{ path('examples_form_empty_data_new_task') }}">Crear Tarea</a></li>
             </ul>
         </div>
     </div>
