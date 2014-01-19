@@ -32,6 +32,7 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
         $form->add('city','entity', array(
             'class'         => 'MainBundle:City',
             'empty_value'   => 'Ciudad',
+            'label'         => 'Ciudad',
             'data'          => $city,
             'attr'          => array(
                 'class' => 'city_selector',

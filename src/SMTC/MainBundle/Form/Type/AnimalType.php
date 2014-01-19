@@ -28,7 +28,8 @@ class AnimalType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'virtual' => true,
+            'inherit_data' => true,
+            'label'        => false,
         ));
     }
 

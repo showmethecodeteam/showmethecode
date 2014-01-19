@@ -22,7 +22,7 @@ class AddressType extends AbstractType
         $builder->addEventSubscriber($citySubscriber);
 
         $builder
-            ->add('street', null, array(
+            ->add('street', 'text', array(
                 'label' => 'Calle'
             ))
         ;

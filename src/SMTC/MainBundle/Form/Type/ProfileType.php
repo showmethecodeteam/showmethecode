@@ -12,7 +12,7 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('name', null, array(
-                'label' => 'nombre'
+                'label' => 'Nombre'
             ))
         ;
     }

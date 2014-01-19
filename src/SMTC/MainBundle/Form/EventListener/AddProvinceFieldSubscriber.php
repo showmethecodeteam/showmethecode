@@ -32,6 +32,7 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
         $form->add('province','entity', array(
             'class'         => 'MainBundle:Province',
             'empty_value'   => 'Provincia',
+            'label'         => 'Provincia',
             'mapped'        => false,
             'data'          => $province,
             'attr'          => array(

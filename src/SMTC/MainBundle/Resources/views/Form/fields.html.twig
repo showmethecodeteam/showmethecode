@@ -2,9 +2,34 @@
 
 {% block form_widget_simple %}
 {% spaceless %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control')|trim}) %}
     {{ parent() }}
     {% if help is defined and help is not empty %}
         <p class="help-block">{{ help }}</p>
     {% endif %}
 {% endspaceless %}
 {% endblock form_widget_simple %}
+
+{% block form_row %}
+{% spaceless %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+
+{% block choice_widget_collapsed %}
+{% spaceless %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control')|trim}) %}
+    {{ parent() }}
+{% endspaceless %}
+{% endblock choice_widget_collapsed %}
+
+{% block textarea_widget %}
+{% spaceless %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control')|trim}) %}
+    {{ parent() }}
+{% endspaceless %}
+{% endblock textarea_widget %}

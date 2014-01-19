@@ -32,6 +32,7 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
             'class'         => 'MainBundle:Country',
             'mapped'        => false,
             'data'          => $country,
+            'label'         => 'País',
             'empty_value'   => 'País',
             'attr'          => array(
                 'class' => 'country_selector',

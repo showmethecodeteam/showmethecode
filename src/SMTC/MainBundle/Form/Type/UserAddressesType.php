@@ -12,7 +12,9 @@ class UserAddressesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
+            ->add('username', 'text', array(
+                'label' => 'Nombre de usuario'
+            ))
             ->add('addresses', 'collection', array(
                 'type'           => new AddressType(),
                 'label'          => 'Direcciones',

@@ -65,7 +65,7 @@ swiftmailer:
 parameters:
     github_repository: https://github.com/showmethecodeteam/showmethecode
     banned_words:
-        - show
         - me
-        - the
+        - show
         - code
+        - the

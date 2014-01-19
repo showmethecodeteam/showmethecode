@@ -21,7 +21,11 @@ class LocationType extends AbstractType
         $countrySubscriber = new AddCountryFieldSubscriber($factory);
         $builder->addEventSubscriber($countrySubscriber);
 
-        $builder->add('address');
+        $builder
+            ->add('address', 'text', array(
+                'label' => 'Calle'
+            ))
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
