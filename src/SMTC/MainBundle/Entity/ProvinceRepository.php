@@ -21,6 +21,6 @@ class ProvinceRepository extends EntityRepository
             WHERE country.id = :country_id
         ")->setParameter('country_id', $country_id);
 
-        return $query->getResult();
+        return $query->getArrayResult();
     }
 }

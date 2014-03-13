@@ -106,7 +106,14 @@
                     data: data,
                     success: function(data) {
                         var $address = $this.closest('.address');
-                        $address.find('.province_selector').html(data);
+                        var $province_selector = $address.find('.province_selector');
+
+                        $province_selector.html('<option>Provincia</option>');
+
+                        for (var i=0, total = data.length; i < total; i++) {
+                            $province_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                        }
+
                         $address.find('.city_selector').html("<option>Ciudad</option>");
                     }
                 });
@@ -123,8 +130,13 @@
                     url: '{{ path("select_cities") }}',
                     data: data,
                     success: function(data) {
-                        var $address = $this.closest('.address');
-                        $address.find('.city_selector').html(data);
+                        var $city_selector = $this.closest('.address').find('.city_selector');
+
+                        $city_selector.html('<option>Ciudad</option>');
+
+                        for (var i=0, total = data.length; i < total; i++) {
+                            $city_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                        }
                     }
                 });
             });

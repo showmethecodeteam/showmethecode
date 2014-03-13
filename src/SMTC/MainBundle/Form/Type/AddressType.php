@@ -13,13 +13,11 @@ class AddressType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $factory = $builder->getFormFactory();
-        $countrySubscriber = new AddCountryFieldSubscriber($factory);
-        $builder->addEventSubscriber($countrySubscriber);
-        $provinceSubscriber = new AddProvinceFieldSubscriber($factory);
-        $builder->addEventSubscriber($provinceSubscriber);
-        $citySubscriber = new AddCityFieldSubscriber($factory);
-        $builder->addEventSubscriber($citySubscriber);
+        $builder
+            ->addEventSubscriber(new AddCountryFieldSubscriber())
+            ->addEventSubscriber(new AddProvinceFieldSubscriber())
+            ->addEventSubscriber(new AddCityFieldSubscriber())
+        ;
 
         $builder
             ->add('street', 'text', array(

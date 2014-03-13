@@ -4,56 +4,50 @@ namespace SMTC\MainBundle\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityRepository;
 use SMTC\MainBundle\Entity\Province;
+use SMTC\MainBundle\Entity\City;
 
 class AddCityFieldSubscriber implements EventSubscriberInterface
 {
-    private $factory;
+    private $propertyPathToCity;
 
-    public function __construct(FormFactoryInterface $factory)
+    public function __construct($propertyPathToCity = 'city')
     {
-        $this->factory = $factory;
+        $this->propertyPathToCity = $propertyPathToCity;
     }
 
     public static function getSubscribedEvents()
     {
         return array(
-            FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind'
+            FormEvents::POST_SET_DATA => 'preSetData',
+            FormEvents::PRE_SUBMIT    => 'preSubmit'
         );
     }
 
-    private function addCityForm($form, $city, $province)
+    private function addCityForm($form, $province_id)
     {
-        $form->add('city','entity', array(
+        $formOptions = array(
             'class'         => 'MainBundle:City',
             'empty_value'   => 'Ciudad',
             'label'         => 'Ciudad',
-            'data'          => $city,
             'attr'          => array(
                 'class' => 'city_selector',
             ),
-            'query_builder' => function (EntityRepository $repository) use ($province) {
+            'query_builder' => function (EntityRepository $repository) use ($province_id) {
                 $qb = $repository->createQueryBuilder('city')
-                    ->innerJoin('city.province', 'province');
-                if ($province instanceof Province) {
-                    $qb->where('city.province = :province')
-                    ->setParameter('province', $province->getId());
-                } elseif (is_numeric($province)) {
-                    $qb->where('province.id = :province')
-                    ->setParameter('province', $province);
-                } else {
-                    $qb->where('province.name = :province')
-                    ->setParameter('province', null);
-                }
+                    ->innerJoin('city.province', 'province')
+                    ->where('province.id = :province')
+                    ->setParameter('province', $province_id)
+                ;
 
                 return $qb;
             }
-        ));
+        );
+
+        $form->add($this->propertyPathToCity, 'entity', $formOptions);
     }
 
     public function preSetData(FormEvent $event)
@@ -64,23 +58,22 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
         if (null === $data) {
             return;
         }
-        $accessor = PropertyAccess::getPropertyAccessor();
-        $city = $accessor->getValue($data, 'city');
-        $province = ($city) ? $city->getProvince() : null ;
-        $this->addCityForm($form, $city, $province);
+
+        $accessor    = PropertyAccess::createPropertyAccessor();
+
+        $city        = $accessor->getValue($data, $this->propertyPathToCity);
+        $province_id = ($city) ? $city->getProvince()->getId() : null;
+
+        $this->addCityForm($form, $province_id);
     }
 
-    public function preBind(FormEvent $event)
+    public function preSubmit(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
 
-        if (null === $data) {
-            return;
-        }
+        $province_id = array_key_exists('province', $data) ? $data['province'] : null;
 
-        $province = array_key_exists('province', $data) ? $data['province'] : null;
-        $city = array_key_exists('city', $data) ? $data['city'] : null;
-        $this->addCityForm($form, $city, $province);
+        $this->addCityForm($form, $province_id);
     }
 }

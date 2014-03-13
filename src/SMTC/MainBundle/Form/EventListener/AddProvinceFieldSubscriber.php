@@ -4,7 +4,6 @@ namespace SMTC\MainBundle\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityRepository;
@@ -12,49 +11,47 @@ use SMTC\MainBundle\Entity\Country;
 
 class AddProvinceFieldSubscriber implements EventSubscriberInterface
 {
-    private $factory;
+    private $propertyPathToCity;
 
-    public function __construct(FormFactoryInterface $factory)
+    public function __construct($propertyPathToCity = 'city')
     {
-        $this->factory = $factory;
+        $this->propertyPathToCity = $propertyPathToCity;
     }
 
     public static function getSubscribedEvents()
     {
         return array(
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind'
+            FormEvents::PRE_SUBMIT   => 'preSubmit'
         );
     }
 
-    private function addProvinceForm($form, $province, $country)
+    private function addProvinceForm($form, $country_id, $province = null)
     {
-        $form->add('province','entity', array(
+        $formOptions = array(
             'class'         => 'MainBundle:Province',
             'empty_value'   => 'Provincia',
             'label'         => 'Provincia',
             'mapped'        => false,
-            'data'          => $province,
             'attr'          => array(
                 'class' => 'province_selector',
             ),
-            'query_builder' => function (EntityRepository $repository) use ($country) {
+            'query_builder' => function (EntityRepository $repository) use ($country_id) {
                 $qb = $repository->createQueryBuilder('province')
-                    ->innerJoin('province.country', 'country');
-                if ($country instanceof Country) {
-                    $qb->where('province.country = :country')
-                    ->setParameter('country', $country);
-                } elseif (is_numeric($country)) {
-                    $qb->where('country.id = :country')
-                    ->setParameter('country', $country);
-                } else {
-                    $qb->where('country.name = :country')
-                    ->setParameter('country', null);
-                }
+                    ->innerJoin('province.country', 'country')
+                    ->where('country.id = :country')
+                    ->setParameter('country', $country_id)
+                ;
 
                 return $qb;
             }
-        ));
+        );
+
+        if ($province) {
+            $formOptions['data'] = $province;
+        }
+
+        $form->add('province','entity', $formOptions);
     }
 
     public function preSetData(FormEvent $event)
@@ -67,23 +64,21 @@ class AddProvinceFieldSubscriber implements EventSubscriberInterface
         }
 
         $accessor = PropertyAccess::getPropertyAccessor();
-        $city = $accessor->getValue($data, 'city');
-        $province = ($city) ? $city->getProvince() : null ;
-        $country = ($province) ? $province->getCountry() : null ;
-        $this->addProvinceForm($form, $province, $country);
+
+        $city        = $accessor->getValue($data, $this->propertyPathToCity);
+        $province    = ($city) ? $city->getProvince() : null;
+        $country_id  = ($province) ? $province->getCountry()->getId() : null;
+
+        $this->addProvinceForm($form, $country_id, $province);
     }
 
-    public function preBind(FormEvent $event)
+    public function preSubmit(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
 
-        if (null === $data) {
-            return;
-        }
+        $country_id = array_key_exists('country', $data) ? $data['country'] : null;
 
-        $province = array_key_exists('province', $data) ? $data['province'] : null;
-        $country = array_key_exists('country', $data) ? $data['country'] : null;
-        $this->addProvinceForm($form, $province, $country);
+        $this->addProvinceForm($form, $country_id);
     }
 }

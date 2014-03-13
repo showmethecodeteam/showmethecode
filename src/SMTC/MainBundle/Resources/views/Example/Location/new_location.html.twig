@@ -22,7 +22,14 @@
                     url: '{{ path("select_provinces") }}',
                     data: data,
                     success: function(data) {
-                        $('#location_province').html(data);
+                        var $province_selector = $('#location_province');
+
+                        $province_selector.html('<option>Provincia</option>');
+
+                        for (var i=0, total = data.length; i < total; i++) {
+                            $province_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                        }
+
                         $('#location_city').html("<option>Ciudad</option>");
                     }
                 });
@@ -38,7 +45,13 @@
                     url: '{{ path("select_cities") }}',
                     data: data,
                     success: function(data) {
-                        $('#location_city').html(data);
+                        var $city_selector = $('#location_city');
+
+                        $city_selector.html('<option>Ciudad</option>');
+
+                        for (var i=0, total = data.length; i < total; i++) {
+                            $city_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                        }
                     }
                 });
             });

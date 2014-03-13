@@ -4,45 +4,44 @@ namespace SMTC\MainBundle\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Doctrine\ORM\EntityRepository;
 
 class AddCountryFieldSubscriber implements EventSubscriberInterface
 {
-    private $factory;
+    private $propertyPathToCity;
 
-    public function __construct(FormFactoryInterface $factory)
+    public function __construct($propertyPathToCity = 'city')
     {
-        $this->factory = $factory;
+        $this->propertyPathToCity = $propertyPathToCity;
     }
 
     public static function getSubscribedEvents()
     {
         return array(
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind'
+            FormEvents::PRE_SUBMIT   => 'preSubmit'
         );
     }
 
-    private function addCountryForm($form, $country)
+    private function addCountryForm($form, $country = null)
     {
-        $form->add('country', 'entity', array(
+        $formOptions = array(
             'class'         => 'MainBundle:Country',
             'mapped'        => false,
-            'data'          => $country,
             'label'         => 'País',
             'empty_value'   => 'País',
             'attr'          => array(
                 'class' => 'country_selector',
             ),
-            'query_builder' => function (EntityRepository $repository) {
-                $qb = $repository->createQueryBuilder('country');
+        );
 
-                return $qb;
-            }
-        ));
+        if ($country) {
+            $formOptions['data'] = $country;
+        }
+
+        $form->add('country', 'entity', $formOptions);
     }
 
     public function preSetData(FormEvent $event)
@@ -50,26 +49,22 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
 
+        $accessor = PropertyAccess::getPropertyAccessor();
+
         if (null === $data) {
             return;
         }
 
-        $accessor = PropertyAccess::getPropertyAccessor();
-        $city = $accessor->getValue($data, 'city');
-        $country = ($city) ? $city->getProvince()->getCountry() : null ;
+        $city    = $accessor->getValue($data, $this->propertyPathToCity);
+        $country = ($city) ? $city->getProvince()->getCountry() : null;
+
         $this->addCountryForm($form, $country);
     }
 
-    public function preBind(FormEvent $event)
+    public function preSubmit(FormEvent $event)
     {
-        $data = $event->getData();
         $form = $event->getForm();
 
-        if (null === $data) {
-            return;
-        }
-
-        $country = array_key_exists('country', $data) ? $data['country'] : null;
-        $this->addCountryForm($form, $country);
+        $this->addCountryForm($form);
     }
 }

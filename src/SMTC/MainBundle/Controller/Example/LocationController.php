@@ -37,20 +37,18 @@ class LocationController extends Controller
         $location = new Location();
         $form = $this->createForm(new LocationType(), $location);
 
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
+        if ($form->isValid()) {
 
-                // do amazing things
+            // do amazing things
 
-                $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('smtc_success', 'Se ha creado una localización:');
-                $flashBag->add('smtc_success', sprintf('Dirección: %s', $location->address));
-                $flashBag->add('smtc_success', sprintf('Ciudad: %s', $location->city->getName()));
+            $flashBag = $this->get('session')->getFlashBag();
+            $flashBag->add('smtc_success', 'Se ha creado una localización:');
+            $flashBag->add('smtc_success', sprintf('Dirección: %s', $location->address));
+            $flashBag->add('smtc_success', sprintf('Ciudad: %s', $location->city->getName()));
 
-                return $this->redirect($this->generateUrl('examples_dependent_selects'));
-            }
+            return $this->redirect($this->generateUrl('examples_dependent_selects'));
         }
 
         return array(
@@ -63,29 +61,25 @@ class LocationController extends Controller
      * @ParamConverter("city", class="MainBundle:City")
      * @Template("MainBundle:Example\Location:edit_location.html.twig")
      */
-    public function editLocationAction(City $city)
+    public function editLocationAction(City $city, Request $request)
     {
         $location = new Location();
         $location->address = sprintf("Calle X número %d", rand(1,100));
         $location->city = $city;
         $form = $this->createForm(new LocationType(), $location);
 
-        $request = $this->getRequest();
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        if ($form->isValid()) {
 
-            if ($form->isValid()) {
+            // do amazing things
 
-                // do amazing things
+            $flashBag = $this->get('session')->getFlashBag();
+            $flashBag->add('smtc_success', 'Se ha editado una localización:');
+            $flashBag->add('smtc_success', sprintf('Dirección: %s', $location->address));
+            $flashBag->add('smtc_success', sprintf('Ciudad: %s', $location->city->getName()));
 
-                $flashBag = $this->get('session')->getFlashBag();
-                $flashBag->add('smtc_success', 'Se ha editado una localización:');
-                $flashBag->add('smtc_success', sprintf('Dirección: %s', $location->address));
-                $flashBag->add('smtc_success', sprintf('Ciudad: %s', $location->city->getName()));
-
-                return $this->redirect($this->generateUrl('examples_dependent_selects'));
-            }
+            return $this->redirect($this->generateUrl('examples_dependent_selects'));
         }
 
         return array(

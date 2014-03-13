@@ -33,7 +33,7 @@ class CityRepository extends EntityRepository
             WHERE province.id = :province_id
         ")->setParameter('province_id', $province_id);
 
-        return $query->getResult();
+        return $query->getArrayResult();
     }
 
     public function findRandomCitiesByCountry(Country $country, $limit = null)
