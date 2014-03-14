@@ -6,7 +6,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Doctrine\ORM\EntityRepository;
 
 class AddCountryFieldSubscriber implements EventSubscriberInterface
 {
@@ -49,11 +48,11 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
 
-        $accessor = PropertyAccess::getPropertyAccessor();
-
         if (null === $data) {
             return;
         }
+
+        $accessor = PropertyAccess::getPropertyAccessor();
 
         $city    = $accessor->getValue($data, $this->propertyPathToCity);
         $country = ($city) ? $city->getProvince()->getCountry() : null;
