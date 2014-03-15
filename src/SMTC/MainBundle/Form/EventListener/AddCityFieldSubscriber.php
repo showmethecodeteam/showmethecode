@@ -14,7 +14,7 @@ class AddCityFieldSubscriber implements EventSubscriberInterface
 {
     private $propertyPathToCity;
 
-    public function __construct($propertyPathToCity = 'city')
+    public function __construct($propertyPathToCity)
     {
         $this->propertyPathToCity = $propertyPathToCity;
     }

@@ -13,10 +13,12 @@ class LocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $propertyPathToCity = 'city';
+
         $builder
-            ->addEventSubscriber(new AddCityFieldSubscriber())
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber())
+            ->addEventSubscriber(new AddCityFieldSubscriber($propertyPathToCity))
+            ->addEventSubscriber(new AddProvinceFieldSubscriber($propertyPathToCity))
+            ->addEventSubscriber(new AddCountryFieldSubscriber($propertyPathToCity))
         ;
 
         $builder
